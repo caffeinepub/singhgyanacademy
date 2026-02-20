@@ -20,6 +20,8 @@ import {
   Video,
   Palette,
   Users,
+  UserCircle,
+  FileEdit,
 } from 'lucide-react';
 import { AssessmentType } from '../../backend';
 
@@ -101,6 +103,20 @@ export default function AdminDashboard() {
       path: '/admin/students',
       count: students.length,
     },
+    {
+      icon: UserCircle,
+      title: 'Manage Leadership',
+      description: 'Upload leadership profile images',
+      path: '/admin/leadership',
+      count: null,
+    },
+    {
+      icon: FileEdit,
+      title: 'Static Content',
+      description: 'Edit About Us, contact info, footer',
+      path: '/admin/static-content',
+      count: null,
+    },
   ];
 
   return (
@@ -115,18 +131,18 @@ export default function AdminDashboard() {
           {adminSections.map((section) => (
             <Card key={section.path} className="hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <section.icon className="h-12 w-12 text-primary mb-4" />
+                <div className="flex items-center justify-between mb-2">
+                  <section.icon className="h-8 w-8 text-primary" />
                   {section.count !== null && (
-                    <div className="text-3xl font-bold text-primary">{section.count}</div>
+                    <span className="text-2xl font-bold text-primary">{section.count}</span>
                   )}
                 </div>
                 <CardTitle>{section.title}</CardTitle>
                 <CardDescription>{section.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button className="w-full" onClick={() => navigate({ to: section.path })}>
-                  Open
+                <Button onClick={() => navigate({ to: section.path })} className="w-full">
+                  Manage
                 </Button>
               </CardContent>
             </Card>

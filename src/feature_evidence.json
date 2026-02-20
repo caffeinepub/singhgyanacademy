@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-an-admin-dashboard-landing-page-that-displays-navigation-cards-for-managing-courses-videos-notes-tests-current-affairs-branding-logo-colors-and-viewing-registered-students-include-statistics-overview-showing-total-counts-for-each-content-type",
-      "featureTitle": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
+      "featureId": "feature-update-main-navigation-menu-to-include-home-ai-learning-competitive-exams-school-education-video-classes-study-material-test-series-current-affairs-geography-special-about-contact",
+      "featureTitle": "Update main navigation menu to include: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact",
       "files": [
-        "frontend/src/pages/admin/Dashboard.tsx"
+        "frontend/src/components/Navigation.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,16 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-22"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-enhance-the-existing-managecourses-admin-page-to-support-editing-and-deleting-courses-in-addition-to-adding-new-courses-display-a-list-of-all-existing-courses-with-edit-and-delete-buttons-for-each-course",
-      "featureTitle": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
+      "featureId": "feature-update-site-tagline-to-ek-kadam-nishulk-shiksha-ki-aur-and-subtitle-to-india-s-smart-learning-platform",
+      "featureTitle": "Update site tagline to 'Ek Kadam Nishulk Shiksha Ki Aur' and subtitle to 'India's Smart Learning Platform'",
       "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/ManageCourses.tsx"
+        "frontend/src/pages/Home.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -38,17 +37,234 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-23"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-video-management-admin-page-where-admins-can-add-youtube-video-links-with-metadata-title-category-description-edit-existing-videos-and-delete-videos-display-all-videos-in-a-searchable-and-filterable-list",
-      "featureTitle": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
+      "featureId": "feature-create-competitive-exams-landing-page-with-navigation-to-all-exam-categories-civil-services-upsc-state-pcs-ssc-exams-railway-exams-police-exams-teaching-exams-banking-exams-defence-exams",
+      "featureTitle": "Create Competitive Exams landing page with navigation to all exam categories: Civil Services (UPSC/State PCS), SSC Exams, Railway Exams, Police Exams, Teaching Exams, Banking Exams, Defence Exams",
       "files": [
         "frontend/src/App.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/ManageVideos.tsx"
+        "frontend/src/pages/CompetitiveExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-civil-services-exams-page-with-two-main-sections-upsc-prelims-mains-optional-interview-notes-test-series-and-all-state-pcs-with-individual-pages-for-uppcs-bpsc-mppcs-rpsc-hpsc-ukpsc-jpsc-cgpsc-mpsc-gpsc-appsc-tspsc-wbpsc-tnpsc-kpsc-kerala-psc-punjab-psc-and-other-states",
+      "featureTitle": "Create Civil Services Exams page with two main sections: UPSC (Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS with individual pages for UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, and Other States",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/CivilServicesExams.tsx",
+        "frontend/src/pages/StatePCSDetail.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-school-education-landing-page-with-two-main-sections-classes-1-12-and-boards-cbse-icse-up-board-bihar-board-mp-board-rajasthan-board-maharashtra-board-other-state-boards-each-class-page-must-display-subject-wise-notes-videos-question-bank-and-sample-papers",
+      "featureTitle": "Create School Education landing page with two main sections: Classes (1-12) and Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards). Each class page must display Subject Wise Notes, Videos, Question Bank, and Sample Papers",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/ClassDetail.tsx",
+        "frontend/src/pages/SchoolEducation.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-ssc-exams-page-displaying-all-9-ssc-exam-categories-cgl-chsl-gd-mts-cpo-stenographer-je-selection-post-constable-each-exam-detail-page-must-show-syllabus-previous-papers-notes-and-test-series-tabs",
+      "featureTitle": "Create SSC Exams page displaying all 9 SSC exam categories (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable). Each exam detail page must show Syllabus, Previous Papers, Notes, and Test Series tabs",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/SSCExamDetail.tsx",
+        "frontend/src/pages/SSCExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-railway-exams-page-displaying-all-7-railway-exam-categories-with-detail-pages-for-each-exam",
+      "featureTitle": "Create Railway Exams page displaying all 7 railway exam categories with detail pages for each exam",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/RailwayExamDetail.tsx",
+        "frontend/src/pages/RailwayExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-police-exams-page-displaying-all-police-exam-categories-with-state-wise-organization",
+      "featureTitle": "Create Police Exams page displaying all police exam categories with state-wise organization",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/PoliceExamDetail.tsx",
+        "frontend/src/pages/PoliceExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-teaching-exams-page-displaying-all-10-teaching-exam-categories-with-detail-pages-for-each-exam",
+      "featureTitle": "Create Teaching Exams page displaying all 10 teaching exam categories with detail pages for each exam",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/TeachingExamDetail.tsx",
+        "frontend/src/pages/TeachingExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-banking-exams-page-displaying-all-7-banking-exam-categories-with-detail-pages-for-each-exam",
+      "featureTitle": "Create Banking Exams page displaying all 7 banking exam categories with detail pages for each exam",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/BankingExamDetail.tsx",
+        "frontend/src/pages/BankingExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-defence-exams-page-displaying-all-6-defence-exam-categories-with-detail-pages-for-each-exam",
+      "featureTitle": "Create Defence Exams page displaying all 6 defence exam categories with detail pages for each exam",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/DefenceExamDetail.tsx",
+        "frontend/src/pages/DefenceExams.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-study-material-page-with-subject-wise-organization-for-history-geography-polity-economy-science-maths-reasoning-english-and-hindi-with-downloadable-notes-video-lectures-and-practice-questions-for-each-subject",
+      "featureTitle": "Create Study Material page with subject-wise organization for History, Geography, Polity, Economy, Science, Maths, Reasoning, English, and Hindi with downloadable notes, video lectures, and practice questions for each subject",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/StudyMaterial.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-geography-special-page-with-dedicated-sections-for-physical-geography-human-geography-indian-geography-climatology-oceanography-models-theories-upsc-optional-and-university-content-with-in-depth-articles-diagrams-and-video-explanations",
+      "featureTitle": "Create Geography Special page with dedicated sections for Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, and University content with in-depth articles, diagrams, and video explanations",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/GeographySpecial.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -65,32 +281,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-enhance-the-existing-managetests-admin-page-to-support-editing-and-deleting-test-series-display-a-list-of-all-existing-tests-with-edit-and-delete-buttons-and-allow-admins-to-modify-questions-within-a-test",
-      "featureTitle": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
+      "featureId": "feature-update-admin-dashboard-to-support-managing-all-new-exam-categories-school-education-content-and-enhanced-ai-features-with-appropriate-crud-interfaces",
+      "featureTitle": "Update admin dashboard to support managing all new exam categories, school education content, and enhanced AI features with appropriate CRUD interfaces",
       "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/ManageTests.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-25"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-enhance-the-existing-managenotes-admin-page-to-support-editing-and-deleting-notes-display-a-list-of-all-uploaded-notes-with-subject-title-and-action-buttons-for-each-note",
-      "featureTitle": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
-      "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/ManageNotes.tsx"
+        "frontend/src/pages/admin/ManageCourses.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -103,91 +297,6 @@
       ],
       "testIds": [
         "REQ-26"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-enhance-the-existing-managecurrentaffairs-admin-page-to-support-editing-and-deleting-current-affairs-entries-display-a-list-of-all-current-affairs-posts-with-type-daily-weekly-monthly-date-and-action-buttons",
-      "featureTitle": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
-      "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/ManageCurrentAffairs.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-27"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-branding-settings-admin-page-where-admins-can-upload-a-new-logo-image-preview-it-and-update-the-logo-used-throughout-the-platform-store-the-logo-as-a-generated-image-asset",
-      "featureTitle": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/BrandingSettings.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-28"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-student-management-admin-page-that-displays-a-searchable-and-filterable-table-of-all-registered-students-showing-name-email-registration-date-and-activity-status",
-      "featureTitle": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/admin/StudentManagement.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-29"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-navigation-component-to-dynamically-load-and-display-the-logo-from-backend-configuration-instead-of-using-a-hardcoded-path-allowing-logo-changes-from-the-branding-settings-page-to-reflect-immediately",
-      "featureTitle": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
-      "files": [
-        "frontend/src/components/Navigation.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-31"
       ],
       "confidence": "high"
     }

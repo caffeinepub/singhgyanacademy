@@ -2,6 +2,7 @@ import Array "mo:core/Array";
 import File "blob-storage/Storage";
 import Iter "mo:core/Iter";
 import Map "mo:core/Map";
+
 import Nat "mo:core/Nat";
 import Order "mo:core/Order";
 import Principal "mo:core/Principal";
@@ -10,35 +11,218 @@ import Text "mo:core/Text";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import MixinStorage "blob-storage/Mixin";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   include MixinStorage();
 
+  // New School Education Types
+  public type SchoolClass = {
+    #class1;
+    #class2;
+    #class3;
+    #class4;
+    #class5;
+    #class6;
+    #class7;
+    #class8;
+    #class9;
+    #class10;
+    #class11;
+    #class12;
+  };
+
+  public type Board = {
+    #cbse;
+    #icse;
+    #upBoard;
+    #biharBoard;
+    #mpBoard;
+    #rajasthanBoard;
+    #maharashtraBoard;
+    #otherStateBoards;
+  };
+
+  public type SchoolContentType = {
+    #notes;
+    #videos;
+    #questionBanks;
+    #samplePapers;
+  };
+
+  // Extended CourseCategory
   public type CourseCategory = {
+    // Existing Categories
     #upsc;
-    #uppcs;
-    #ssc;
-    #railway;
-    #banking;
-    #tet_ctet;
-    #police;
-    #nda_cds;
     #university_geography;
+
+    // State PCS
+    #uppcs;
+    #bpsc;
+    #mppcs;
+    #rpsc;
+    #hpsc;
+    #ukpsc;
+    #jpsc;
+    #cgpsc;
+    #mpsc;
+    #gpsc;
+    #appsc;
+    #tspsc;
+    #wbpsc;
+    #tnpsc;
+    #kpsc;
+    #keralaPSC;
+    #punjabPSC;
+    #otherStatesPCS;
+
+    // SSC
+    #sscCGL;
+    #sscCHSL;
+    #sscGD;
+    #sscMTS;
+    #sscCPO;
+    #sscStenographer;
+    #sscJE;
+    #sscSelectionPost;
+    #sscConstable;
+
+    // Railway
+    #rrbNTPC;
+    #rrbGroupD;
+    #rrbALP;
+    #rrbTechnician;
+    #rrbJE;
+    #rpfConstable;
+    #rpfSI;
+
+    // Police
+    #upPolice;
+    #biharPolice;
+    #mpPolice;
+    #delhiPolice;
+    #rajasthanPolice;
+    #haryanaPolice;
+    #capf;
+    #otherStatesPolice;
+
+    // Teaching
+    #ctet;
+    #uptet;
+    #htet;
+    #reet;
+    #mptet;
+    #superTET;
+    #kvs;
+    #nvs;
+    #dsssb;
+    #stateTET;
+
+    // Banking
+    #ibpsPO;
+    #ibpsClerk;
+    #sbiPO;
+    #sbiClerk;
+    #rbiGradeB;
+    #nabard;
+    #licAAO;
+
+    // Defence
+    #nda;
+    #cds;
+    #afcat;
+    #agniveer;
+    #navy;
+    #airforce;
   };
 
   module CourseCategory {
     public func compare(a : CourseCategory, b : CourseCategory) : Order.Order {
       let rank = func(cat : CourseCategory) : Nat {
         switch (cat) {
+          // Existing Categories
           case (#upsc) { 0 };
-          case (#uppcs) { 1 };
-          case (#ssc) { 2 };
-          case (#railway) { 3 };
-          case (#banking) { 4 };
-          case (#tet_ctet) { 5 };
-          case (#police) { 6 };
-          case (#nda_cds) { 7 };
-          case (#university_geography) { 8 };
+          case (#university_geography) { 1 };
+
+          // State PCS
+          case (#uppcs) { 2 };
+          case (#bpsc) { 3 };
+          case (#mppcs) { 4 };
+          case (#rpsc) { 5 };
+          case (#hpsc) { 6 };
+          case (#ukpsc) { 7 };
+          case (#jpsc) { 8 };
+          case (#cgpsc) { 9 };
+          case (#mpsc) { 10 };
+          case (#gpsc) { 11 };
+          case (#appsc) { 12 };
+          case (#tspsc) { 13 };
+          case (#wbpsc) { 14 };
+          case (#tnpsc) { 15 };
+          case (#kpsc) { 16 };
+          case (#keralaPSC) { 17 };
+          case (#punjabPSC) { 18 };
+          case (#otherStatesPCS) { 19 };
+
+          // SSC
+          case (#sscCGL) { 20 };
+          case (#sscCHSL) { 21 };
+          case (#sscGD) { 22 };
+          case (#sscMTS) { 23 };
+          case (#sscCPO) { 24 };
+          case (#sscStenographer) { 25 };
+          case (#sscJE) { 26 };
+          case (#sscSelectionPost) { 27 };
+          case (#sscConstable) { 28 };
+
+          // Railway
+          case (#rrbNTPC) { 29 };
+          case (#rrbGroupD) { 30 };
+          case (#rrbALP) { 31 };
+          case (#rrbTechnician) { 32 };
+          case (#rrbJE) { 33 };
+          case (#rpfConstable) { 34 };
+          case (#rpfSI) { 35 };
+
+          // Police
+          case (#upPolice) { 36 };
+          case (#biharPolice) { 37 };
+          case (#mpPolice) { 38 };
+          case (#delhiPolice) { 39 };
+          case (#rajasthanPolice) { 40 };
+          case (#haryanaPolice) { 41 };
+          case (#capf) { 42 };
+          case (#otherStatesPolice) { 43 };
+
+          // Teaching
+          case (#ctet) { 44 };
+          case (#uptet) { 45 };
+          case (#htet) { 46 };
+          case (#reet) { 47 };
+          case (#mptet) { 48 };
+          case (#superTET) { 49 };
+          case (#kvs) { 50 };
+          case (#nvs) { 51 };
+          case (#dsssb) { 52 };
+          case (#stateTET) { 53 };
+
+          // Banking
+          case (#ibpsPO) { 54 };
+          case (#ibpsClerk) { 55 };
+          case (#sbiPO) { 56 };
+          case (#sbiClerk) { 57 };
+          case (#rbiGradeB) { 58 };
+          case (#nabard) { 59 };
+          case (#licAAO) { 60 };
+
+          // Defence
+          case (#nda) { 61 };
+          case (#cds) { 62 };
+          case (#afcat) { 63 };
+          case (#agniveer) { 64 };
+          case (#navy) { 65 };
+          case (#airforce) { 66 };
         };
       };
       Nat.compare(rank(a), rank(b));
@@ -128,6 +312,19 @@ actor {
 
   public type Logo = File.ExternalBlob;
 
+  public type LeadershipImage = {
+    name : Text;
+    image : File.ExternalBlob;
+    position : Text;
+    description : Text;
+  };
+
+  public type StaticContent = {
+    aboutUs : Text;
+    contactInfo : Text;
+    footerText : Text;
+  };
+
   // State management
   var nextCourseId = 0;
   var nextNoteId = 0;
@@ -149,8 +346,70 @@ actor {
   let userProfiles = Map.empty<Principal, UserProfile>();
   let principalToStudentId = Map.empty<Principal, Nat>();
   let videoLibrary = Map.empty<Nat, Video>();
+  var staticContent : StaticContent = {
+    aboutUs = "";
+    contactInfo = "";
+    footerText = "";
+  };
+
+  let leadershipImages = Map.empty<Text, LeadershipImage>();
 
   var logo : ?Logo = null;
+
+  // Leadership Images CRUD
+  public shared ({ caller }) func addLeadershipImage(name : Text, image : File.ExternalBlob, position : Text, description : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add leadership images");
+    };
+
+    let leadershipImage : LeadershipImage = {
+      name;
+      image;
+      position;
+      description;
+    };
+
+    leadershipImages.add(name, leadershipImage);
+  };
+
+  public shared ({ caller }) func updateLeadershipImage(name : Text, image : File.ExternalBlob, position : Text, description : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can update leadership images");
+    };
+
+    if (not leadershipImages.containsKey(name)) {
+      Runtime.trap("Leadership image does not exist");
+    };
+
+    let leadershipImage : LeadershipImage = {
+      name;
+      image;
+      position;
+      description;
+    };
+
+    leadershipImages.add(name, leadershipImage);
+  };
+
+  public shared ({ caller }) func deleteLeadershipImage(name : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can delete leadership images");
+    };
+
+    if (not leadershipImages.containsKey(name)) {
+      Runtime.trap("Leadership image does not exist");
+    };
+
+    leadershipImages.remove(name);
+  };
+
+  public query ({ caller }) func getLeadershipImage(name : Text) : async ?LeadershipImage {
+    leadershipImages.get(name);
+  };
+
+  public query ({ caller }) func getAllLeadershipImages() : async [LeadershipImage] {
+    leadershipImages.values().toArray();
+  };
 
   // User Profile Management (Required by frontend)
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
@@ -240,6 +499,10 @@ actor {
     courses.remove(id);
   };
 
+  public query ({ caller }) func getCourseById(id : Nat) : async ?Course {
+    courses.get(id);
+  };
+
   // Notes Management
   public shared ({ caller }) func addNote(subject : Subject, file : File.ExternalBlob) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
@@ -311,6 +574,9 @@ actor {
   };
 
   public query ({ caller }) func getTestsByType(assessmentType : AssessmentType) : async [Test] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only registered users can access tests");
+    };
     tests.values().toArray().filter(func(t) { t.assessmentType == assessmentType });
   };
 
@@ -554,5 +820,21 @@ actor {
 
   public query ({ caller }) func getLogo() : async ?Logo {
     logo;
+  };
+
+  // Static Content Management
+  public shared ({ caller }) func updateStaticContent(aboutUs : Text, contactInfo : Text, footerText : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can update static content");
+    };
+    staticContent := {
+      aboutUs;
+      contactInfo;
+      footerText;
+    };
+  };
+
+  public query ({ caller }) func getStaticContent() : async StaticContent {
+    staticContent;
   };
 };

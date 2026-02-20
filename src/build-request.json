@@ -1,218 +1,480 @@
 {
   "kind": "build_request",
-  "title": "Build complete admin panel with dashboard, content management, and branding controls",
-  "projectName": "SinghGyan Academy",
+  "title": "Transform SinghGyanAcademy into All India Mega Education Platform",
+  "projectName": "Singh Gyan Academy",
   "priority": "high",
   "requirements": [
     {
-      "id": "REQ-22",
-      "text": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
+      "id": "REQ-1",
+      "text": "Update main navigation menu to include: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-admin-panel-request"
+          "msg-4"
         ],
         "quotes": [
-          "Dashboard - सारी activity देखने के लिए"
+          "MAIN MENU STRUCTURE (Top Navigation): Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard displays 7 navigation cards: Course Management, Video Management, Test Management, Notes Management, Current Affairs, Branding Settings, Student Management",
-        "Each card shows the total count of items (courses, videos, notes, tests, students)",
-        "Cards are clickable and navigate to respective management pages",
-        "Dashboard is only accessible to authenticated admin users"
+        "Navigation bar displays all 11 menu items in the specified order",
+        "All menu items link to their respective pages",
+        "Mobile navigation includes all menu items"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update site tagline to 'Ek Kadam Nishulk Shiksha Ki Aur' and subtitle to 'India's Smart Learning Platform'",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Tagline: Ek Kadam Nishulk Shiksha Ki Aur, India's Smart Learning Platform"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Tagline displays 'Ek Kadam Nishulk Shiksha Ki Aur' on the homepage hero section",
+        "Subtitle 'India's Smart Learning Platform' appears below the tagline"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create Competitive Exams landing page with navigation to all exam categories: Civil Services (UPSC/State PCS), SSC Exams, Railway Exams, Police Exams, Teaching Exams, Banking Exams, Defence Exams",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "COMPETITIVE EXAMS SECTION (सबसे बड़ा Section) इसमें हर Exam Category अलग Page में होगा"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Competitive Exams page displays all 7 exam category cards",
+        "Each category card shows icon, name, and description",
+        "Clicking a category navigates to its dedicated page"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create Civil Services Exams page with two main sections: UPSC (Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS with individual pages for UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, and Other States",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "UPSC + ALL STATE PCS SECTION Page Name: Civil Services Exams Sub Sections: UPSC Prelims, Mains, Optional, Interview, Notes, Test Series All State PCS UPPCS, BPSC, MPPSC, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, Other States"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Civil Services page displays UPSC section with 6 subsections",
+        "All State PCS section lists all 18 state exams",
+        "Each state exam links to a detail page showing Syllabus, Notes, Videos, Test Series"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Extend backend CourseCategory enum to include all State PCS exams: UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, KeralaPSC, PunjabPSC, OtherStatesPCS",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "All State PCS UPPCS, BPSC, MPPSC, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, Other States"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum in backend/main.mo includes all 18 State PCS categories",
+        "Existing course data remains intact after migration"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create School Education landing page with two main sections: Classes (1-12) and Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards). Each class page must display Subject Wise Notes, Videos, Question Bank, and Sample Papers",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "SCHOOL EDUCATION SECTION (All Classes + Boards) Page Name: School Learning Classes Section Class 1, Class 2, Class 3, Class 4, Class 5, Class 6, Class 7, Class 8, Class 9, Class 10, Class 11, Class 12 Boards Section CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards"
+        ]
+      },
+      "acceptanceCriteria": [
+        "School Education page displays 12 class cards and 8 board cards",
+        "Each class page shows tabs for Subject Wise Notes, Videos, Question Bank, Sample Papers",
+        "Board filter works across all class content"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Extend backend to support school education with new data types for Classes (1-12), Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards), and content types (Notes, Videos, Question Banks, Sample Papers)",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "हर Class में: ✅ Subject Wise Notes ✅ Videos ✅ Question Bank ✅ Sample Papers"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend defines Class enum with values Class1 through Class12",
+        "Backend defines Board enum with all 8 board types",
+        "CRUD operations support filtering by class, board, and content type"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Extend backend CourseCategory enum to include SSC exams: SSC_CGL, SSC_CHSL, SSC_GD, SSC_MTS, SSC_CPO, SSC_Stenographer, SSC_JE, SSC_SelectionPost, SSC_Constable",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "SSC EXAMS SECTION Sub Exams: SSC CGL, SSC CHSL, SSC GD, SSC MTS, SSC CPO, SSC Stenographer, SSC JE, SSC Selection Post, SSC Constable"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 9 SSC exam types",
+        "Each SSC exam supports Syllabus, Previous Papers, Notes, Test Series content"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Create SSC Exams page displaying all 9 SSC exam categories (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable). Each exam detail page must show Syllabus, Previous Papers, Notes, and Test Series tabs",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "SSC EXAMS SECTION Page: SSC Exams Sub Exams: SSC CGL, SSC CHSL, SSC GD, SSC MTS, SSC CPO, SSC Stenographer, SSC JE, SSC Selection Post, SSC Constable हर Exam में: ✅ Syllabus ✅ Previous Papers ✅ Notes ✅ Test Series"
+        ]
+      },
+      "acceptanceCriteria": [
+        "SSC Exams page displays all 9 exam category cards",
+        "Each exam detail page shows 4 tabs: Syllabus, Previous Papers, Notes, Test Series",
+        "Content loads dynamically based on selected exam"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Extend backend CourseCategory enum to include Railway exams: RRB_NTPC, RRB_GroupD, RRB_ALP, RRB_Technician, RRB_JE, RPF_Constable, RPF_SI",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "RAILWAY EXAMS SECTION Page: Railway Exams Sub Exams: RRB NTPC, RRB Group D, RRB ALP, RRB Technician, RRB JE, RPF Constable, RPF SI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 7 Railway exam types",
+        "Railway exams support same content structure as other competitive exams"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Create Railway Exams page displaying all 7 railway exam categories with detail pages for each exam",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "RAILWAY EXAMS SECTION Page: Railway Exams Sub Exams: RRB NTPC, RRB Group D, RRB ALP, RRB Technician, RRB JE, RPF Constable, RPF SI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Railway Exams page displays all 7 exam categories",
+        "Each exam has a detail page with syllabus, notes, and test series"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Extend backend CourseCategory enum to include Police exams: UP_Police, Bihar_Police, MP_Police, Delhi_Police, Rajasthan_Police, Haryana_Police, CAPF, OtherStatesPolice",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "POLICE EXAMS SECTION Page: Police Exams Sub Exams: UP Police, Bihar Police, MP Police, Delhi Police, Rajasthan Police, Haryana Police, SSC GD, CAPF, Other States"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 8 Police exam types (note: SSC GD already exists in SSC section)",
+        "Police exams support syllabus, notes, previous papers, and test series"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Create Police Exams page displaying all police exam categories with state-wise organization",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "POLICE EXAMS SECTION Page: Police Exams Sub Exams: UP Police, Bihar Police, MP Police, Delhi Police, Rajasthan Police, Haryana Police, SSC GD, CAPF, Other States"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Police Exams page displays all police exam categories",
+        "Page includes link to SSC GD (cross-referenced from SSC section)",
+        "Each exam detail page shows relevant preparation material"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Extend backend CourseCategory enum to include Teaching exams: CTET, UPTET, HTET, REET, MPTET, SuperTET, KVS, NVS, DSSSB, StateTET",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "TEACHING EXAMS SECTION Page: Teaching Exams Sub Exams: CTET, UPTET, HTET, REET, MPTET, Super TET, KVS, NVS, DSSSB, State TET"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 10 Teaching exam types",
+        "Teaching exams support syllabus, notes, and test series content"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Create Teaching Exams page displaying all 10 teaching exam categories with detail pages for each exam",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "TEACHING EXAMS SECTION Page: Teaching Exams Sub Exams: CTET, UPTET, HTET, REET, MPTET, Super TET, KVS, NVS, DSSSB, State TET"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Teaching Exams page displays all 10 exam categories",
+        "Each exam detail page provides syllabus, preparation material, and tests"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Extend backend CourseCategory enum to include Banking exams: IBPS_PO, IBPS_Clerk, SBI_PO, SBI_Clerk, RBI_GradeB, NABARD, LIC_AAO",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "BANKING EXAMS SECTION Page: Banking Exams Sub Exams: IBPS PO, IBPS Clerk, SBI PO, SBI Clerk, RBI Grade B, NABARD, LIC AAO"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 7 Banking exam types",
+        "Banking exams support syllabus, previous papers, notes, and test series"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Create Banking Exams page displaying all 7 banking exam categories with detail pages for each exam",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "BANKING EXAMS SECTION Page: Banking Exams Sub Exams: IBPS PO, IBPS Clerk, SBI PO, SBI Clerk, RBI Grade B, NABARD, LIC AAO"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Banking Exams page displays all 7 exam categories",
+        "Each exam detail page shows comprehensive preparation resources"
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "text": "Extend backend CourseCategory enum to include Defence exams: NDA, CDS, AFCAT, Agniveer, Navy, Airforce",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "DEFENCE EXAMS SECTION Page: Defence Exams Sub Exams: NDA, CDS, AFCAT, Agniveer, Navy, Airforce"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CourseCategory enum includes all 6 Defence exam types",
+        "Defence exams support syllabus, physical standards, notes, and test series"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "text": "Create Defence Exams page displaying all 6 defence exam categories with detail pages for each exam",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "DEFENCE EXAMS SECTION Page: Defence Exams Sub Exams: NDA, CDS, AFCAT, Agniveer, Navy, Airforce"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Defence Exams page displays all 6 exam categories",
+        "Each exam detail page includes syllabus and preparation guidance"
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "Update AI Learning Zone page to include AI Study Planner and Doubt Solver features alongside existing AI Teacher, Notes Generator, Test Generator, Exam Strategy Advisor, Geography Expert, and Current Affairs Generator",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "AI LEARNING SECTION सबसे Powerful Feature. Sections: Ask AI Teacher, AI Notes Generator, AI Test Generator, AI Study Planner, Doubt Solver"
+        ]
+      },
+      "acceptanceCriteria": [
+        "AI Learning Zone displays all 8 AI features in a grid layout",
+        "AI Study Planner generates personalized study timetables based on exam date and syllabus",
+        "Doubt Solver allows students to ask specific questions and receive detailed explanations"
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "text": "Create Study Material page with subject-wise organization for History, Geography, Polity, Economy, Science, Maths, Reasoning, English, and Hindi with downloadable notes, video lectures, and practice questions for each subject",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "STUDY MATERIAL SECTION Subjects: History, Geography, Polity, Economy, Science, Maths, Reasoning, English, Hindi"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Study Material page displays all 9 subject categories",
+        "Each subject page shows organized content with notes, videos, and practice materials",
+        "Content can be filtered by difficulty level and exam relevance"
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Update Video Classes page to integrate YouTube channel @singhgyanacademy with organized playlists by exam category and subject, replacing the current placeholder content",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "VIDEO CLASSES SECTION YouTube Integration: @singhgyanacademy"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Video Classes page displays embedded playlists from @singhgyanacademy YouTube channel",
+        "Videos are organized by exam category and subject",
+        "Each video shows title, duration, and thumbnail"
       ]
     },
     {
       "id": "REQ-23",
-      "text": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
-      "target": "both",
+      "text": "Update Test Series page to include PYQ Practice section alongside existing Daily Quiz, Weekly Test, and Full Mock tabs",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-admin-panel-request"
+          "msg-4"
         ],
         "quotes": [
-          "Course Management - नए course add/edit/delete करना"
+          "TEST SERIES SECTION Daily Quiz, Weekly Test, Full Mock, PYQ Practice"
         ]
       },
       "acceptanceCriteria": [
-        "Course list displays all courses with their category, title, and action buttons",
-        "Edit button opens a form pre-populated with existing course data",
-        "Delete button removes course after confirmation prompt",
-        "Add new course functionality remains intact",
-        "Backend provides endpoints for updateCourse and deleteCourse operations"
+        "Test Series page displays 4 tabs: Daily Quiz, Weekly Test, Full Mock, PYQ Practice",
+        "PYQ Practice section shows previous year questions organized by exam and year",
+        "Users can filter PYQs by exam type, year, and subject"
       ]
     },
     {
       "id": "REQ-24",
-      "text": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
-      "target": "both",
+      "text": "Create Geography Special page with dedicated sections for Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, and University content with in-depth articles, diagrams, and video explanations",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-admin-panel-request"
+          "msg-4"
         ],
         "quotes": [
-          "Video Upload - YouTube links add करना या videos upload करना"
+          "GEOGRAPHY SPECIAL SECTION Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, University"
         ]
       },
       "acceptanceCriteria": [
-        "Form accepts YouTube URL, video title, category selection (Geography Classes, Current Affairs, GS Classes, Exam Strategy), and optional description",
-        "Video list shows thumbnail preview, title, category, and action buttons",
-        "Edit functionality allows modifying video metadata",
-        "Delete functionality removes video after confirmation",
-        "Backend stores video data with VideoLecture type structure"
+        "Geography Special page displays all 8 specialized geography topics",
+        "Each topic section includes detailed articles, visual diagrams, and video content",
+        "Content is organized by difficulty level (beginner, intermediate, advanced)",
+        "UPSC Optional section provides comprehensive optional geography coverage"
       ]
     },
     {
       "id": "REQ-25",
-      "text": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
-      "target": "both",
+      "text": "Update Current Affairs Hub to include Quiz section alongside existing Daily, Weekly, and Monthly tabs, with interactive quizzes based on current affairs content",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-admin-panel-request"
+          "msg-4"
         ],
         "quotes": [
-          "Test Management - questions add करना, test बनाना"
+          "CURRENT AFFAIRS HUB Daily, Weekly, Monthly, Quiz"
         ]
       },
       "acceptanceCriteria": [
-        "Test list displays all tests with title, type, question count, and action buttons",
-        "Edit button opens form with existing test data and questions",
-        "Admins can add, edit, or remove individual questions within a test",
-        "Delete button removes entire test after confirmation",
-        "Backend provides updateTest and deleteTest endpoints"
+        "Current Affairs page displays 4 tabs: Daily, Weekly, Monthly, Quiz",
+        "Quiz section generates questions from recent current affairs content",
+        "Users receive instant feedback and explanations for quiz answers"
       ]
     },
     {
       "id": "REQ-26",
-      "text": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-user-admin-panel-request"
-        ],
-        "quotes": [
-          "Notes Upload - PDF files upload करना"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Notes list displays all notes grouped by subject with title, upload date, and action buttons",
-        "Edit functionality allows changing note title and re-uploading PDF",
-        "Delete button removes note after confirmation",
-        "Upload new notes functionality remains intact",
-        "Backend provides updateNote and deleteNote endpoints"
-      ]
-    },
-    {
-      "id": "REQ-27",
-      "text": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-user-admin-panel-request"
-        ],
-        "quotes": [
-          "Current Affairs - daily/weekly updates डालना"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Current affairs list displays all entries sorted by date with type badge and action buttons",
-        "Edit button opens form with existing content and PDF link",
-        "Delete button removes entry after confirmation",
-        "Filtering by type (daily/weekly/monthly) is available",
-        "Backend provides updateCurrentAffair and deleteCurrentAffair endpoints"
-      ]
-    },
-    {
-      "id": "REQ-28",
-      "text": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-user-admin-panel-request"
-        ],
-        "quotes": [
-          "Logo & Branding - logo और colors बदलना"
-        ]
-      },
-      "acceptanceCriteria": [
-        "File upload accepts image files (PNG, JPG, SVG) for logo replacement",
-        "Logo preview shows before and after comparison",
-        "Save button updates the logo reference in backend configuration",
-        "New logo immediately reflects in Navigation component after save",
-        "Logo file is stored in frontend/public/assets/generated directory"
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "text": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-user-admin-panel-request"
-        ],
-        "quotes": [
-          "Student Management - registered students देखना"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Table displays all student profiles with columns: Name, Email, Registration Date, Last Active",
-        "Search functionality filters students by name or email",
-        "Pagination displays 20 students per page",
-        "Export to CSV button downloads complete student list",
-        "Backend provides getAllStudents query for admin users"
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "text": "Update backend main.mo to add CRUD endpoints for updateCourse, deleteCourse, updateTest, deleteTest, updateNote, deleteNote, updateCurrentAffair, deleteCurrentAffair, updateLogo, and getAllStudents with proper admin authorization checks.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-user-admin-panel-request"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All update endpoints accept ID and modified data, returning success boolean",
-        "All delete endpoints accept ID and remove entry from storage",
-        "updateLogo endpoint accepts logoUrl string and updates platform configuration",
-        "getAllStudents query returns array of student profiles with metadata",
-        "All endpoints verify caller is admin before executing operations",
-        "Endpoints return proper error messages for unauthorized access"
-      ]
-    },
-    {
-      "id": "REQ-31",
-      "text": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
+      "text": "Update admin dashboard to support managing all new exam categories, school education content, and enhanced AI features with appropriate CRUD interfaces",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-admin-panel-request"
+          "msg-4"
         ]
       },
       "acceptanceCriteria": [
-        "Navigation component fetches current logo URL from backend on mount",
-        "Logo image src updates when branding settings are saved",
-        "Fallback to default logo if backend returns no custom logo",
-        "Logo maintains responsive sizing and accessibility attributes"
+        "Admin dashboard displays management cards for all new exam categories",
+        "School Education management includes class, board, and subject filters",
+        "AI features configuration panel allows updating AI response templates"
       ]
     }
   ],
   "constraints": [
-    "All admin functionality must verify authentication and admin status before allowing access",
-    "Maintain single-actor architecture in backend/main.mo",
-    "Do not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
-    "Use existing FileUploadWithProgress component for file uploads",
-    "Follow existing patterns in ManageCourses.tsx, ManageNotes.tsx, ManageTests.tsx, and ManageCurrentAffairs.tsx for consistency"
+    "Maintain single-actor backend architecture with all logic in backend/main.mo",
+    "Do not modify immutable frontend paths: useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts, main.tsx, components/ui/*",
+    "Preserve existing admin authentication and access control mechanisms",
+    "Ensure all new CourseCategory enum values follow consistent naming conventions",
+    "Maintain backward compatibility with existing course data during migration"
   ],
   "nonGoals": [
-    "Building mobile apps or native applications",
-    "Implementing real-time notifications or WebSocket features",
-    "Adding third-party authentication beyond Internet Identity",
-    "Creating multi-language admin interface (English only for admin panel)",
-    "Implementing role-based access control with multiple admin levels",
-    "Adding bulk import/export functionality for content",
-    "Building analytics dashboard with charts and graphs"
+    "Third-party authentication providers (only Internet Identity)",
+    "Real-time chat features",
+    "Mobile app development",
+    "Integration with external LLM APIs",
+    "Payment gateway integration beyond existing Stripe support",
+    "WebSocket-based real-time updates",
+    "Multiple backend microservices",
+    "External database integrations"
   ],
   "imageRequirements": {
     "required": [],

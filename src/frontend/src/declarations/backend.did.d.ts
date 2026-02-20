@@ -22,15 +22,73 @@ export interface Course {
   'videoLectures' : Array<string>,
   'syllabus' : Array<string>,
 }
-export type CourseCategory = { 'ssc' : null } |
-  { 'railway' : null } |
+export type CourseCategory = { 'cds' : null } |
+  { 'kvs' : null } |
+  { 'nda' : null } |
+  { 'nvs' : null } |
+  { 'otherStatesPolice' : null } |
+  { 'mppcs' : null } |
+  { 'mptet' : null } |
+  { 'tnpsc' : null } |
+  { 'nabard' : null } |
+  { 'tspsc' : null } |
+  { 'otherStatesPCS' : null } |
+  { 'afcat' : null } |
+  { 'appsc' : null } |
+  { 'agniveer' : null } |
+  { 'rbiGradeB' : null } |
+  { 'rpfConstable' : null } |
+  { 'bpsc' : null } |
+  { 'capf' : null } |
+  { 'ctet' : null } |
+  { 'biharPolice' : null } |
+  { 'gpsc' : null } |
+  { 'hpsc' : null } |
+  { 'cgpsc' : null } |
+  { 'htet' : null } |
+  { 'jpsc' : null } |
+  { 'kpsc' : null } |
+  { 'mpsc' : null } |
+  { 'navy' : null } |
+  { 'reet' : null } |
+  { 'rpsc' : null } |
   { 'upsc' : null } |
-  { 'banking' : null } |
+  { 'airforce' : null } |
+  { 'rajasthanPolice' : null } |
+  { 'stateTET' : null } |
+  { 'ibpsClerk' : null } |
+  { 'sscCGL' : null } |
+  { 'sscCPO' : null } |
+  { 'sscMTS' : null } |
+  { 'sbiClerk' : null } |
   { 'university_geography' : null } |
+  { 'sbiPO' : null } |
+  { 'keralaPSC' : null } |
+  { 'rrbALP' : null } |
+  { 'upPolice' : null } |
+  { 'sscGD' : null } |
+  { 'sscJE' : null } |
+  { 'rrbGroupD' : null } |
+  { 'ukpsc' : null } |
   { 'uppcs' : null } |
-  { 'tet_ctet' : null } |
-  { 'nda_cds' : null } |
-  { 'police' : null };
+  { 'uptet' : null } |
+  { 'delhiPolice' : null } |
+  { 'sscConstable' : null } |
+  { 'rrbTechnician' : null } |
+  { 'ibpsPO' : null } |
+  { 'mpPolice' : null } |
+  { 'rrbNTPC' : null } |
+  { 'wbpsc' : null } |
+  { 'punjabPSC' : null } |
+  { 'sscStenographer' : null } |
+  { 'sscCHSL' : null } |
+  { 'dsssb' : null } |
+  { 'licAAO' : null } |
+  { 'rpfSI' : null } |
+  { 'superTET' : null } |
+  { 'rrbJE' : null } |
+  { 'sscSelectionPost' : null } |
+  { 'haryanaPolice' : null };
 export interface CurrentAffair {
   'id' : bigint,
   'content' : string,
@@ -41,11 +99,22 @@ export type CurrentAffairsType = { 'monthlyMagazine' : null } |
   { 'dailyUpdate' : null } |
   { 'weeklyPDF' : null };
 export type ExternalBlob = Uint8Array;
+export interface LeadershipImage {
+  'name' : string,
+  'description' : string,
+  'image' : ExternalBlob,
+  'position' : string,
+}
 export type Logo = Uint8Array;
 export interface Note {
   'id' : bigint,
   'subject' : Subject,
   'file' : ExternalBlob,
+}
+export interface StaticContent {
+  'contactInfo' : string,
+  'aboutUs' : string,
+  'footerText' : string,
 }
 export interface StudentProfile {
   'id' : bigint,
@@ -122,31 +191,40 @@ export interface _SERVICE {
     [CurrentAffairsType, string, [] | [ExternalBlob]],
     undefined
   >,
+  'addLeadershipImage' : ActorMethod<
+    [string, ExternalBlob, string, string],
+    undefined
+  >,
   'addNote' : ActorMethod<[Subject, ExternalBlob], undefined>,
   'addTest' : ActorMethod<[AssessmentType, Array<string>], undefined>,
   'addVideo' : ActorMethod<[string, string, string, string], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'deleteCourse' : ActorMethod<[bigint], undefined>,
   'deleteCurrentAffair' : ActorMethod<[bigint], undefined>,
+  'deleteLeadershipImage' : ActorMethod<[string], undefined>,
   'deleteNote' : ActorMethod<[bigint], undefined>,
   'deleteTest' : ActorMethod<[bigint], undefined>,
   'deleteVideo' : ActorMethod<[bigint], undefined>,
   'enrollCourse' : ActorMethod<[bigint, bigint], undefined>,
   'getAllCurrentAffairs' : ActorMethod<[], Array<CurrentAffair>>,
+  'getAllLeadershipImages' : ActorMethod<[], Array<LeadershipImage>>,
   'getAllNotes' : ActorMethod<[], Array<Note>>,
   'getAllStudents' : ActorMethod<[], Array<StudentProfile>>,
   'getAllVideos' : ActorMethod<[], Array<Video>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getCourseById' : ActorMethod<[bigint], [] | [Course]>,
   'getCoursesByCategory' : ActorMethod<[CourseCategory], Array<Course>>,
   'getCurrentAffairsByType' : ActorMethod<
     [CurrentAffairsType],
     Array<CurrentAffair>
   >,
+  'getLeadershipImage' : ActorMethod<[string], [] | [LeadershipImage]>,
   'getLogo' : ActorMethod<[], [] | [Logo]>,
   'getNotesBySubject' : ActorMethod<[Subject], Array<Note>>,
   'getSortedCoursesByCategory' : ActorMethod<[], Array<Course>>,
   'getSortedCoursesByNumLectures' : ActorMethod<[], Array<Course>>,
+  'getStaticContent' : ActorMethod<[], StaticContent>,
   'getStudent' : ActorMethod<[bigint], StudentProfile>,
   'getTestsByType' : ActorMethod<[AssessmentType], Array<Test>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
@@ -169,8 +247,13 @@ export interface _SERVICE {
     [bigint, CurrentAffairsType, string, [] | [ExternalBlob]],
     undefined
   >,
+  'updateLeadershipImage' : ActorMethod<
+    [string, ExternalBlob, string, string],
+    undefined
+  >,
   'updateLogo' : ActorMethod<[Logo], undefined>,
   'updateNote' : ActorMethod<[bigint, Subject, ExternalBlob], undefined>,
+  'updateStaticContent' : ActorMethod<[string, string, string], undefined>,
   'updateTest' : ActorMethod<
     [bigint, AssessmentType, Array<string>],
     undefined

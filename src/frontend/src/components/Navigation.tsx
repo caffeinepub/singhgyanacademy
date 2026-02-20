@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, GraduationCap, BookOpen, Video, FileText, ClipboardList, Newspaper, Globe } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import LoginButton from './LoginButton';
@@ -27,12 +27,14 @@ export default function Navigation() {
 
   const navLinks = [
     { to: '/', label: 'Home' },
-    { to: '/ai-learning-zone', label: 'AI Learning Zone', icon: Sparkles },
-    { to: '/courses', label: 'Courses' },
-    { to: '/video-classes', label: 'Video Classes' },
-    { to: '/notes', label: 'Notes' },
-    { to: '/test-series', label: 'Test Series' },
-    { to: '/current-affairs', label: 'Current Affairs' },
+    { to: '/ai-learning', label: 'AI Learning', icon: Sparkles },
+    { to: '/competitive-exams', label: 'Competitive Exams', icon: GraduationCap },
+    { to: '/school-education', label: 'School Education', icon: BookOpen },
+    { to: '/video-classes', label: 'Video Classes', icon: Video },
+    { to: '/study-material', label: 'Study Material', icon: FileText },
+    { to: '/test-series', label: 'Test Series', icon: ClipboardList },
+    { to: '/current-affairs', label: 'Current Affairs', icon: Newspaper },
+    { to: '/geography-special', label: 'Geography Special', icon: Globe },
     { to: '/about', label: 'About' },
     { to: '/contact', label: 'Contact' },
   ];
@@ -45,7 +47,7 @@ export default function Navigation() {
             <img src={logoUrl} alt="SinghGyan Academy" className="h-10 w-10" />
             <div className="hidden sm:block">
               <div className="font-bold text-lg leading-tight">SinghGyan Academy</div>
-              <div className="text-xs text-muted-foreground">AI Learning Platform</div>
+              <div className="text-xs text-muted-foreground">India's Smart Learning Platform</div>
             </div>
           </div>
 

@@ -1,21 +1,15 @@
 import { useState } from 'react';
-import {
-  useIsCallerAdmin,
-  useAddCourse,
-  useGetSortedCoursesByCategory,
-  useUpdateCourse,
-  useDeleteCourse,
-} from '../../hooks/useQueries';
-import AccessDeniedScreen from '../../components/AccessDeniedScreen';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Plus, Trash2, Edit, X } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { useGetSortedCoursesByCategory, useAddCourse, useUpdateCourse, useDeleteCourse } from '../../hooks/useQueries';
+import { CourseCategory } from '../../backend';
+import { ExternalBlob } from '../../backend';
 import { toast } from 'sonner';
-import FileUploadWithProgress from '../../components/FileUploadWithProgress';
-import { CourseCategory, ExternalBlob } from '../../backend';
+import { Trash2, Edit, Plus } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,142 +20,188 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Badge } from '@/components/ui/badge';
 
 const categoryLabels: Record<CourseCategory, string> = {
   [CourseCategory.upsc]: 'UPSC',
   [CourseCategory.uppcs]: 'UPPCS',
-  [CourseCategory.ssc]: 'SSC',
-  [CourseCategory.railway]: 'Railway',
-  [CourseCategory.banking]: 'Banking',
-  [CourseCategory.tet_ctet]: 'TET / CTET',
-  [CourseCategory.police]: 'Police',
-  [CourseCategory.nda_cds]: 'NDA / CDS',
   [CourseCategory.university_geography]: 'University Geography',
+  [CourseCategory.bpsc]: 'BPSC',
+  [CourseCategory.mppcs]: 'MPPCS',
+  [CourseCategory.rpsc]: 'RPSC',
+  [CourseCategory.hpsc]: 'HPSC',
+  [CourseCategory.ukpsc]: 'UKPSC',
+  [CourseCategory.jpsc]: 'JPSC',
+  [CourseCategory.cgpsc]: 'CGPSC',
+  [CourseCategory.mpsc]: 'MPSC',
+  [CourseCategory.gpsc]: 'GPSC',
+  [CourseCategory.appsc]: 'APPSC',
+  [CourseCategory.tspsc]: 'TSPSC',
+  [CourseCategory.wbpsc]: 'WBPSC',
+  [CourseCategory.tnpsc]: 'TNPSC',
+  [CourseCategory.kpsc]: 'KPSC',
+  [CourseCategory.keralaPSC]: 'Kerala PSC',
+  [CourseCategory.punjabPSC]: 'Punjab PSC',
+  [CourseCategory.otherStatesPCS]: 'Other States PCS',
+  [CourseCategory.sscCGL]: 'SSC CGL',
+  [CourseCategory.sscCHSL]: 'SSC CHSL',
+  [CourseCategory.sscGD]: 'SSC GD',
+  [CourseCategory.sscMTS]: 'SSC MTS',
+  [CourseCategory.sscCPO]: 'SSC CPO',
+  [CourseCategory.sscStenographer]: 'SSC Stenographer',
+  [CourseCategory.sscJE]: 'SSC JE',
+  [CourseCategory.sscSelectionPost]: 'SSC Selection Post',
+  [CourseCategory.sscConstable]: 'SSC Constable',
+  [CourseCategory.rrbNTPC]: 'RRB NTPC',
+  [CourseCategory.rrbGroupD]: 'RRB Group D',
+  [CourseCategory.rrbALP]: 'RRB ALP',
+  [CourseCategory.rrbTechnician]: 'RRB Technician',
+  [CourseCategory.rrbJE]: 'RRB JE',
+  [CourseCategory.rpfConstable]: 'RPF Constable',
+  [CourseCategory.rpfSI]: 'RPF SI',
+  [CourseCategory.upPolice]: 'UP Police',
+  [CourseCategory.biharPolice]: 'Bihar Police',
+  [CourseCategory.mpPolice]: 'MP Police',
+  [CourseCategory.delhiPolice]: 'Delhi Police',
+  [CourseCategory.rajasthanPolice]: 'Rajasthan Police',
+  [CourseCategory.haryanaPolice]: 'Haryana Police',
+  [CourseCategory.capf]: 'CAPF',
+  [CourseCategory.otherStatesPolice]: 'Other States Police',
+  [CourseCategory.ctet]: 'CTET',
+  [CourseCategory.uptet]: 'UPTET',
+  [CourseCategory.htet]: 'HTET',
+  [CourseCategory.reet]: 'REET',
+  [CourseCategory.mptet]: 'MPTET',
+  [CourseCategory.superTET]: 'Super TET',
+  [CourseCategory.kvs]: 'KVS',
+  [CourseCategory.nvs]: 'NVS',
+  [CourseCategory.dsssb]: 'DSSSB',
+  [CourseCategory.stateTET]: 'State TET',
+  [CourseCategory.ibpsPO]: 'IBPS PO',
+  [CourseCategory.ibpsClerk]: 'IBPS Clerk',
+  [CourseCategory.sbiPO]: 'SBI PO',
+  [CourseCategory.sbiClerk]: 'SBI Clerk',
+  [CourseCategory.rbiGradeB]: 'RBI Grade B',
+  [CourseCategory.nabard]: 'NABARD',
+  [CourseCategory.licAAO]: 'LIC AAO',
+  [CourseCategory.nda]: 'NDA',
+  [CourseCategory.cds]: 'CDS',
+  [CourseCategory.afcat]: 'AFCAT',
+  [CourseCategory.agniveer]: 'Agniveer',
+  [CourseCategory.navy]: 'Navy',
+  [CourseCategory.airforce]: 'Air Force',
 };
 
 export default function ManageCourses() {
-  const { data: isAdmin, isLoading: adminLoading } = useIsCallerAdmin();
   const { data: courses = [] } = useGetSortedCoursesByCategory();
-  const addCourse = useAddCourse();
-  const updateCourse = useUpdateCourse();
-  const deleteCourse = useDeleteCourse();
-
-  const [editingCourse, setEditingCourse] = useState<bigint | null>(null);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [courseToDelete, setCourseToDelete] = useState<bigint | null>(null);
+  const addCourseMutation = useAddCourse();
+  const updateCourseMutation = useUpdateCourse();
+  const deleteCourseMutation = useDeleteCourse();
 
   const [category, setCategory] = useState<CourseCategory>(CourseCategory.upsc);
-  const [syllabus, setSyllabus] = useState<string[]>(['']);
-  const [videoLectures, setVideoLectures] = useState<string[]>(['']);
-  const [notesFiles, setNotesFiles] = useState<ExternalBlob[]>([]);
-  const [pyqFiles, setPyqFiles] = useState<ExternalBlob[]>([]);
-  const [testSeries, setTestSeries] = useState<string[]>(['']);
-
-  if (adminLoading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return <AccessDeniedScreen />;
-  }
-
-  const resetForm = () => {
-    setCategory(CourseCategory.upsc);
-    setSyllabus(['']);
-    setVideoLectures(['']);
-    setNotesFiles([]);
-    setPyqFiles([]);
-    setTestSeries(['']);
-    setEditingCourse(null);
-  };
-
-  const handleEdit = (course: any) => {
-    setEditingCourse(course.id);
-    setCategory(course.category);
-    setSyllabus(course.syllabus.length > 0 ? course.syllabus : ['']);
-    setVideoLectures(course.videoLectures.length > 0 ? course.videoLectures : ['']);
-    setNotesFiles(course.notes);
-    setPyqFiles(course.pyq);
-    setTestSeries(course.testSeries.length > 0 ? course.testSeries : ['']);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleDelete = async () => {
-    if (!courseToDelete) return;
-
-    try {
-      await deleteCourse.mutateAsync(courseToDelete);
-      toast.success('Course deleted successfully!');
-      setDeleteDialogOpen(false);
-      setCourseToDelete(null);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to delete course');
-    }
-  };
+  const [syllabus, setSyllabus] = useState('');
+  const [videoLectures, setVideoLectures] = useState('');
+  const [notesFiles, setNotesFiles] = useState<File[]>([]);
+  const [pyqFiles, setPyqFiles] = useState<File[]>([]);
+  const [testSeries, setTestSeries] = useState('');
+  const [editingId, setEditingId] = useState<bigint | null>(null);
+  const [deleteId, setDeleteId] = useState<bigint | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const params = {
-        category,
-        syllabus: syllabus.filter((s) => s.trim() !== ''),
-        videoLectures: videoLectures.filter((v) => v.trim() !== ''),
-        notesFiles,
-        pyqFiles,
-        testSeries: testSeries.filter((t) => t.trim() !== ''),
-      };
+    const syllabusArray = syllabus.split('\n').filter((line) => line.trim());
+    const videoArray = videoLectures.split('\n').filter((line) => line.trim());
+    const testArray = testSeries.split('\n').filter((line) => line.trim());
 
-      if (editingCourse !== null) {
-        await updateCourse.mutateAsync({ id: editingCourse, ...params });
-        toast.success('Course updated successfully!');
+    const notesBlobs = await Promise.all(
+      notesFiles.map(async (file) => {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        return ExternalBlob.fromBytes(bytes);
+      })
+    );
+
+    const pyqBlobs = await Promise.all(
+      pyqFiles.map(async (file) => {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        return ExternalBlob.fromBytes(bytes);
+      })
+    );
+
+    try {
+      if (editingId !== null) {
+        await updateCourseMutation.mutateAsync({
+          id: editingId,
+          category,
+          syllabus: syllabusArray,
+          videoLectures: videoArray,
+          notesFiles: notesBlobs,
+          pyqFiles: pyqBlobs,
+          testSeries: testArray,
+        });
+        toast.success('Course updated successfully');
+        setEditingId(null);
       } else {
-        await addCourse.mutateAsync(params);
-        toast.success('Course added successfully!');
+        await addCourseMutation.mutateAsync({
+          category,
+          syllabus: syllabusArray,
+          videoLectures: videoArray,
+          notesFiles: notesBlobs,
+          pyqFiles: pyqBlobs,
+          testSeries: testArray,
+        });
+        toast.success('Course added successfully');
       }
 
-      resetForm();
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to save course');
+      setSyllabus('');
+      setVideoLectures('');
+      setNotesFiles([]);
+      setPyqFiles([]);
+      setTestSeries('');
+    } catch (error) {
+      toast.error('Failed to save course');
+    }
+  };
+
+  const handleEdit = (course: any) => {
+    setEditingId(course.id);
+    setCategory(course.category);
+    setSyllabus(course.syllabus.join('\n'));
+    setVideoLectures(course.videoLectures.join('\n'));
+    setTestSeries(course.testSeries.join('\n'));
+  };
+
+  const handleDelete = async () => {
+    if (deleteId === null) return;
+
+    try {
+      await deleteCourseMutation.mutateAsync(deleteId);
+      toast.success('Course deleted successfully');
+      setDeleteId(null);
+    } catch (error) {
+      toast.error('Failed to delete course');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div>
-          <h1 className="text-4xl font-bold mb-2">Manage Courses</h1>
-          <p className="text-muted-foreground">Add and manage course content</p>
-        </div>
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">Manage Courses</h1>
 
-        <Card>
+        <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>{editingCourse !== null ? 'Edit Course' : 'Add New Course'}</CardTitle>
-              {editingCourse !== null && (
-                <Button variant="ghost" size="sm" onClick={resetForm}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel Edit
-                </Button>
-              )}
-            </div>
+            <CardTitle>{editingId ? 'Edit Course' : 'Add New Course'}</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label>Course Category</Label>
-                <Select value={category} onValueChange={(v) => setCategory(v as CourseCategory)}>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label>Category</Label>
+                <Select value={category} onValueChange={(value) => setCategory(value as CourseCategory)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(categoryLabels).map(([value, label]) => (
-                      <SelectItem key={value} value={value}>
+                    {Object.entries(categoryLabels).map(([key, label]) => (
+                      <SelectItem key={key} value={key}>
                         {label}
                       </SelectItem>
                     ))}
@@ -169,213 +209,129 @@ export default function ManageCourses() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label>Syllabus Items</Label>
-                {syllabus.map((item, index) => (
-                  <div key={index} className="flex gap-2">
-                    <Input
-                      value={item}
-                      onChange={(e) => {
-                        const newSyllabus = [...syllabus];
-                        newSyllabus[index] = e.target.value;
-                        setSyllabus(newSyllabus);
-                      }}
-                      placeholder="Enter syllabus item"
-                    />
-                    {syllabus.length > 1 && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={() => setSyllabus(syllabus.filter((_, i) => i !== index))}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button type="button" variant="outline" size="sm" onClick={() => setSyllabus([...syllabus, ''])}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Item
-                </Button>
+              <div>
+                <Label>Syllabus (one item per line)</Label>
+                <Textarea
+                  value={syllabus}
+                  onChange={(e) => setSyllabus(e.target.value)}
+                  placeholder="Enter syllabus items, one per line"
+                  rows={6}
+                />
               </div>
 
-              <div className="space-y-2">
-                <Label>Video Lecture IDs (YouTube)</Label>
-                {videoLectures.map((video, index) => (
-                  <div key={index} className="flex gap-2">
-                    <Input
-                      value={video}
-                      onChange={(e) => {
-                        const newVideos = [...videoLectures];
-                        newVideos[index] = e.target.value;
-                        setVideoLectures(newVideos);
-                      }}
-                      placeholder="Enter YouTube video ID"
-                    />
-                    {videoLectures.length > 1 && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={() => setVideoLectures(videoLectures.filter((_, i) => i !== index))}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setVideoLectures([...videoLectures, ''])}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Video
-                </Button>
+              <div>
+                <Label>Video Lectures (YouTube IDs, one per line)</Label>
+                <Textarea
+                  value={videoLectures}
+                  onChange={(e) => setVideoLectures(e.target.value)}
+                  placeholder="Enter YouTube video IDs, one per line"
+                  rows={4}
+                />
               </div>
 
-              <div className="space-y-2">
+              <div>
                 <Label>Notes Files (PDF)</Label>
-                <FileUploadWithProgress
-                  onFileSelect={(blob) => setNotesFiles([...notesFiles, blob])}
-                  label="Upload Notes"
+                <Input
+                  type="file"
+                  accept=".pdf"
+                  multiple
+                  onChange={(e) => setNotesFiles(Array.from(e.target.files || []))}
                 />
-                {notesFiles.length > 0 && (
-                  <p className="text-sm text-muted-foreground">{notesFiles.length} file(s) uploaded</p>
-                )}
               </div>
 
-              <div className="space-y-2">
+              <div>
                 <Label>PYQ Files (PDF)</Label>
-                <FileUploadWithProgress
-                  onFileSelect={(blob) => setPyqFiles([...pyqFiles, blob])}
-                  label="Upload PYQ"
+                <Input
+                  type="file"
+                  accept=".pdf"
+                  multiple
+                  onChange={(e) => setPyqFiles(Array.from(e.target.files || []))}
                 />
-                {pyqFiles.length > 0 && (
-                  <p className="text-sm text-muted-foreground">{pyqFiles.length} file(s) uploaded</p>
-                )}
               </div>
 
-              <div className="space-y-2">
-                <Label>Test Series Links</Label>
-                {testSeries.map((link, index) => (
-                  <div key={index} className="flex gap-2">
-                    <Input
-                      value={link}
-                      onChange={(e) => {
-                        const newLinks = [...testSeries];
-                        newLinks[index] = e.target.value;
-                        setTestSeries(newLinks);
-                      }}
-                      placeholder="Enter test series link"
-                    />
-                    {testSeries.length > 1 && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="icon"
-                        onClick={() => setTestSeries(testSeries.filter((_, i) => i !== index))}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button type="button" variant="outline" size="sm" onClick={() => setTestSeries([...testSeries, ''])}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Link
+              <div>
+                <Label>Test Series (one per line)</Label>
+                <Textarea
+                  value={testSeries}
+                  onChange={(e) => setTestSeries(e.target.value)}
+                  placeholder="Enter test series links or names, one per line"
+                  rows={4}
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Button type="submit" disabled={addCourseMutation.isPending || updateCourseMutation.isPending}>
+                  {editingId ? (
+                    <>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Update Course
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Course
+                    </>
+                  )}
                 </Button>
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={addCourse.isPending || updateCourse.isPending}
-              >
-                {addCourse.isPending || updateCourse.isPending ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    {editingCourse !== null ? 'Updating...' : 'Adding...'}
-                  </>
-                ) : editingCourse !== null ? (
-                  'Update Course'
-                ) : (
-                  'Add Course'
+                {editingId && (
+                  <Button type="button" variant="outline" onClick={() => setEditingId(null)}>
+                    Cancel
+                  </Button>
                 )}
-              </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Existing Courses ({courses.length})</CardTitle>
+            <CardTitle>Existing Courses</CardTitle>
           </CardHeader>
           <CardContent>
-            {courses.length > 0 ? (
-              <div className="space-y-4">
-                {courses.map((course) => (
-                  <div key={course.id.toString()} className="p-4 border rounded-lg space-y-2">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <Badge>{categoryLabels[course.category]}</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          {course.videoLectures.length} videos • {course.notes.length} notes • {course.pyq.length}{' '}
-                          PYQs
-                        </p>
-                        {course.syllabus.length > 0 && (
-                          <p className="text-sm text-muted-foreground">
-                            Syllabus: {course.syllabus.slice(0, 2).join(', ')}
-                            {course.syllabus.length > 2 && '...'}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={() => handleEdit(course)}>
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setCourseToDelete(course.id);
-                            setDeleteDialogOpen(true);
-                          }}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+            <div className="space-y-4">
+              {courses.map((course) => (
+                <div key={course.id.toString()} className="p-4 border rounded-lg">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg mb-2">{categoryLabels[course.category]}</h3>
+                      <div className="text-sm text-muted-foreground space-y-1">
+                        <p>Syllabus items: {course.syllabus.length}</p>
+                        <p>Video lectures: {course.videoLectures.length}</p>
+                        <p>Notes: {course.notes.length}</p>
+                        <p>PYQ: {course.pyq.length}</p>
+                        <p>Tests: {course.testSeries.length}</p>
                       </div>
                     </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEdit(course)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button variant="destructive" size="sm" onClick={() => setDeleteId(course.id)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center py-8 text-muted-foreground">No courses added yet</p>
-            )}
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
-      </div>
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the course and all its content.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} disabled={deleteCourse.isPending}>
-              {deleteCourse.isPending ? 'Deleting...' : 'Delete'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        <AlertDialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the course.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </div>
   );
 }

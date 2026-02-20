@@ -13,6 +13,8 @@ import type {
   StudentProfile,
   Video,
   Logo,
+  LeadershipImage,
+  StaticContent,
 } from '../backend';
 import { ExternalBlob } from '../backend';
 
@@ -533,6 +535,117 @@ export function useUpdateLogo() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['logo'] });
+    },
+  });
+}
+
+// Leadership Images Queries
+export function useGetAllLeadershipImages() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<LeadershipImage[]>({
+    queryKey: ['leadershipImages'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllLeadershipImages();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetLeadershipImage(name: string) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<LeadershipImage | null>({
+    queryKey: ['leadershipImages', name],
+    queryFn: async () => {
+      if (!actor) return null;
+      return actor.getLeadershipImage(name);
+    },
+    enabled: !!actor && !isFetching && !!name,
+  });
+}
+
+export function useAddLeadershipImage() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: {
+      name: string;
+      image: ExternalBlob;
+      position: string;
+      description: string;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.addLeadershipImage(params.name, params.image, params.position, params.description);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['leadershipImages'] });
+    },
+  });
+}
+
+export function useUpdateLeadershipImage() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: {
+      name: string;
+      image: ExternalBlob;
+      position: string;
+      description: string;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.updateLeadershipImage(params.name, params.image, params.position, params.description);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['leadershipImages'] });
+    },
+  });
+}
+
+export function useDeleteLeadershipImage() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (name: string) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.deleteLeadershipImage(name);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['leadershipImages'] });
+    },
+  });
+}
+
+// Static Content Queries
+export function useGetStaticContent() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<StaticContent>({
+    queryKey: ['staticContent'],
+    queryFn: async () => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.getStaticContent();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useUpdateStaticContent() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: { aboutUs: string; contactInfo: string; footerText: string }) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.updateStaticContent(params.aboutUs, params.contactInfo, params.footerText);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['staticContent'] });
     },
   });
 }

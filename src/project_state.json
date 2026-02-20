@@ -1,259 +1,127 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
-  "summary": "AI-powered online education platform for competitive exam preparation (UPSC, SSC, Railway, Banking, etc.) with AI Teacher, AI Notes Generator, AI Test Generator, AI Exam Strategy Advisor, AI Geography Expert, AI Current Affairs Generator, video lectures, notes, test series, and current affairs",
+  "projectStateVersion": 3,
+  "summary": "SinghGyanAcademy - All India Mega Education Platform covering UPSC/State PCS, School Education (all classes/boards), SSC, Railway, Police, Teaching, Banking, Defence exams with AI Learning features",
   "architectural_notes": [
-    "Multi-page education website with 8 main sections",
-    "YouTube video embedding for video classes",
-    "PDF download capability for notes and current affairs",
-    "Google Form integration for test series",
-    "WhatsApp integration for student communication",
-    "Student registration system required",
-    "AI-powered chatbot integration (ChatGPT/Gemini) for AI Teacher feature",
-    "AI notes generation system with PDF export capability",
-    "AI test generation engine for dynamic quiz/test creation",
-    "AI Geography Expert module with diagram and map generation"
+    "Multi-section education platform architecture with 14 major exam categories",
+    "Hierarchical navigation: Main Menu → Exam Categories → Sub-exams → Content Types (Syllabus, Notes, Videos, Test Series)",
+    "AI-powered learning features integrated throughout platform",
+    "YouTube integration for video content delivery",
+    "Tagline: 'Ek Kadam Nishulk Shiksha Ki Aur - India's Smart Learning Platform'",
+    "Future expansion planned: Student Login, Mobile App, Paid Courses, Live Classes, AI Performance Tracking"
   ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-create-a-home-page-displaying-academy-logo-tagline-ek-kadam-nishulk-shiksha-ki-aur-courses-list-preview-latest-updates-section-join-whatsapp-button-youtube-channel-link-and-about-founder-section-featuring-gyanendra-singh",
-      "title": "Create a Home page displaying academy logo, tagline 'Ek Kadam Nishulk Shiksha Ki Aur', courses list preview, latest updates section, Join WhatsApp button, YouTube channel link, and About Founder section featuring Gyanendra Singh",
+      "id": "feature-update-main-navigation-menu-to-include-home-ai-learning-competitive-exams-school-education-video-classes-study-material-test-series-current-affairs-geography-special-about-contact",
+      "title": "Update main navigation menu to include: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-courses-section-organizing-competitive-exams-into-categories-upsc-uppcs-ssc-railway-banking-tet-ctet-police-nda-cds-and-university-geography-each-exam-category-must-display-syllabus-video-lectures-notes-previous-year-questions-pyq-and-test-series",
-      "title": "Create a Courses section organizing competitive exams into categories: UPSC, UPPCS, SSC, Railway, Banking, TET/CTET, Police, NDA/CDS, and University Geography. Each exam category must display syllabus, video lectures, notes, previous year questions (PYQ), and test series",
+      "id": "feature-update-site-tagline-to-ek-kadam-nishulk-shiksha-ki-aur-and-subtitle-to-india-s-smart-learning-platform",
+      "title": "Update site tagline to 'Ek Kadam Nishulk Shiksha Ki Aur' and subtitle to 'India's Smart Learning Platform'",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-video-classes-page-with-embedded-youtube-videos-organized-by-subject-categories-geography-classes-current-affairs-gs-classes-and-exam-strategy",
-      "title": "Create a Video Classes page with embedded YouTube videos organized by subject categories: Geography Classes, Current Affairs, GS Classes, and Exam Strategy",
+      "id": "feature-create-competitive-exams-landing-page-with-navigation-to-all-exam-categories-civil-services-upsc-state-pcs-ssc-exams-railway-exams-police-exams-teaching-exams-banking-exams-defence-exams",
+      "title": "Create Competitive Exams landing page with navigation to all exam categories: Civil Services (UPSC/State PCS), SSC Exams, Railway Exams, Police Exams, Teaching Exams, Banking Exams, Defence Exams",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-notes-section-where-students-can-browse-and-download-pdf-notes-organized-by-subjects-history-geography-polity-economy-science-and-current-affairs",
-      "title": "Create a Notes section where students can browse and download PDF notes organized by subjects: History, Geography, Polity, Economy, Science, and Current Affairs",
+      "id": "feature-create-civil-services-exams-page-with-two-main-sections-upsc-prelims-mains-optional-interview-notes-test-series-and-all-state-pcs-with-individual-pages-for-uppcs-bpsc-mppcs-rpsc-hpsc-ukpsc-jpsc-cgpsc-mpsc-gpsc-appsc-tspsc-wbpsc-tnpsc-kpsc-kerala-psc-punjab-psc-and-other-states",
+      "title": "Create Civil Services Exams page with two main sections: UPSC (Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS with individual pages for UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, and Other States",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-test-series-section-offering-three-types-of-assessments-daily-quiz-weekly-test-and-full-length-test",
-      "title": "Create a Test Series section offering three types of assessments: Daily Quiz, Weekly Test, and Full Length Test",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-current-affairs-section-with-three-content-types-daily-current-affairs-updates-weekly-pdf-downloads-and-monthly-magazine-downloads",
-      "title": "Create a Current Affairs section with three content types: Daily Current Affairs updates, Weekly PDF downloads, and Monthly Magazine downloads",
+      "id": "feature-create-school-education-landing-page-with-two-main-sections-classes-1-12-and-boards-cbse-icse-up-board-bihar-board-mp-board-rajasthan-board-maharashtra-board-other-state-boards-each-class-page-must-display-subject-wise-notes-videos-question-bank-and-sample-papers",
+      "title": "Create School Education landing page with two main sections: Classes (1-12) and Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards). Each class page must display Subject Wise Notes, Videos, Question Bank, and Sample Papers",
       "reqIds": [
         "REQ-6"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-an-about-us-page-describing-singhgyanacademy-as-an-educational-platform-with-the-mission-to-provide-free-education-to-students-from-low-and-middle-income-families-and-featuring-founder-gyanendra-singh",
-      "title": "Create an About Us page describing SinghGyanAcademy as an educational platform with the mission to provide free education to students from low and middle-income families, and featuring founder Gyanendra Singh",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-contact-page-displaying-mobile-number-email-address-and-a-whatsapp-button-for-direct-communication",
-      "title": "Create a Contact page displaying mobile number, email address, and a WhatsApp button for direct communication",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-student-registration-functionality-allowing-users-to-create-accounts-on-the-platform",
-      "title": "Implement student registration functionality allowing users to create accounts on the platform",
+      "id": "feature-create-ssc-exams-page-displaying-all-9-ssc-exam-categories-cgl-chsl-gd-mts-cpo-stenographer-je-selection-post-constable-each-exam-detail-page-must-show-syllabus-previous-papers-notes-and-test-series-tabs",
+      "title": "Create SSC Exams page displaying all 9 SSC exam categories (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable). Each exam detail page must show Syllabus, Previous Papers, Notes, and Test Series tabs",
       "reqIds": [
         "REQ-9"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-an-admin-interface-for-managing-platform-content-including-courses-video-lectures-notes-test-series-and-current-affairs-updates",
-      "title": "Create an admin interface for managing platform content including courses, video lectures, notes, test series, and current affairs updates",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-cohesive-educational-design-theme-throughout-the-platform-that-conveys-trust-accessibility-and-professionalism-suitable-for-a-free-education-initiative-serving-competitive-exam-aspirants-use-warm-inviting-colors-that-promote-learning-clear-typography-for-readability-and-an-organized-layout-that-makes-content-easy-to-navigate",
-      "title": "Apply a cohesive, educational design theme throughout the platform that conveys trust, accessibility, and professionalism suitable for a free education initiative serving competitive exam aspirants. Use warm, inviting colors that promote learning, clear typography for readability, and an organized layout that makes content easy to navigate",
+      "id": "feature-create-railway-exams-page-displaying-all-7-railway-exam-categories-with-detail-pages-for-each-exam",
+      "title": "Create Railway Exams page displaying all 7 railway exam categories with detail pages for each exam",
       "reqIds": [
         "REQ-11"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-an-ai-learning-zone-page-accessible-from-the-main-navigation-that-serves-as-the-central-hub-for-all-ai-powered-features-displaying-sections-for-ask-ai-teacher-generate-notes-create-test-exam-strategy-and-doubt-solver",
-      "title": "Create an AI Learning Zone page accessible from the main navigation that serves as the central hub for all AI-powered features, displaying sections for Ask AI Teacher, Generate Notes, Create Test, Exam Strategy, and Doubt Solver",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-an-ai-teacher-chatbot-interface-that-allows-students-to-ask-questions-about-geography-upsc-preparation-polity-notes-and-other-academic-topics-providing-instant-responses-in-a-conversational-format-available-24-7",
-      "title": "Implement an AI Teacher chatbot interface that allows students to ask questions about Geography, UPSC preparation, Polity notes, and other academic topics, providing instant responses in a conversational format available 24/7",
+      "id": "feature-create-police-exams-page-displaying-all-police-exam-categories-with-state-wise-organization",
+      "title": "Create Police Exams page displaying all police exam categories with state-wise organization",
       "reqIds": [
         "REQ-13"
       ],
       "version": 1
     },
     {
-      "id": "feature-build-an-ai-notes-generator-feature-that-accepts-student-requests-for-subject-specific-notes-e-g-indian-polity-notes-generates-structured-notes-with-key-concepts-creates-downloadable-pdf-files-and-provides-revision-points",
-      "title": "Build an AI Notes Generator feature that accepts student requests for subject-specific notes (e.g., 'मुझे Indian Polity Notes चाहिए'), generates structured notes with key concepts, creates downloadable PDF files, and provides revision points",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-an-ai-test-generator-that-automatically-creates-mcq-tests-practice-questions-mock-tests-and-pyq-pattern-assessments-based-on-selected-topics-or-exam-categories",
-      "title": "Create an AI Test Generator that automatically creates MCQ tests, practice questions, mock tests, and PYQ pattern assessments based on selected topics or exam categories",
+      "id": "feature-create-teaching-exams-page-displaying-all-10-teaching-exam-categories-with-detail-pages-for-each-exam",
+      "title": "Create Teaching Exams page displaying all 10 teaching exam categories with detail pages for each exam",
       "reqIds": [
         "REQ-15"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-an-ai-exam-strategy-advisor-that-provides-personalized-study-plans-book-recommendations-and-time-tables-when-students-ask-questions-like-ssc",
-      "title": "Implement an AI Exam Strategy Advisor that provides personalized study plans, book recommendations, and time tables when students ask questions like 'SSC की तैयारी कैसे करें?'",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-build-an-ai-geography-expert-feature-specifically-designed-for-geography-education-that-generates-diagrams-maps-detailed-notes-concept-explanations-and-university-level-content-when-requested",
-      "title": "Build an AI Geography Expert feature specifically designed for geography education that generates diagrams, maps, detailed notes, concept explanations, and university-level content when requested",
+      "id": "feature-create-banking-exams-page-displaying-all-7-banking-exam-categories-with-detail-pages-for-each-exam",
+      "title": "Create Banking Exams page displaying all 7 banking exam categories with detail pages for each exam",
       "reqIds": [
         "REQ-17"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-an-ai-current-affairs-generator-that-produces-daily-current-affairs-updates-generates-quizzes-based-on-recent-events-and-compiles-monthly-pdf-summaries-automatically",
-      "title": "Create an AI Current Affairs Generator that produces daily current affairs updates, generates quizzes based on recent events, and compiles monthly PDF summaries automatically",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-home-page-hero-section-to-prominently-display-the-tagline-india-s-smart-ai-learning-platform-above-the-existing-ek-kadam-nishulk-shiksha-ki-aur-tagline",
-      "title": "Update the home page hero section to prominently display the tagline '🎓 India's Smart AI Learning Platform' above the existing 'Ek Kadam Nishulk Shiksha Ki Aur' tagline",
+      "id": "feature-create-defence-exams-page-displaying-all-6-defence-exam-categories-with-detail-pages-for-each-exam",
+      "title": "Create Defence Exams page displaying all 6 defence exam categories with detail pages for each exam",
       "reqIds": [
         "REQ-19"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-prominent-feature-showcase-section-on-the-home-page-highlighting-the-ai-powered-capabilities-ai-teacher-notes-generator-test-generator-strategy-advisor-geography-expert-current-affairs-generator-with-icons-and-brief-descriptions",
-      "title": "Add a prominent feature showcase section on the home page highlighting the AI-powered capabilities (AI Teacher, Notes Generator, Test Generator, Strategy Advisor, Geography Expert, Current Affairs Generator) with icons and brief descriptions",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-contact-page-to-display-mobile-number-7068728031-instead-of-any-existing-contact-number",
-      "title": "Update the Contact page to display mobile number 7068728031 instead of any existing contact number",
+      "id": "feature-create-study-material-page-with-subject-wise-organization-for-history-geography-polity-economy-science-maths-reasoning-english-and-hindi-with-downloadable-notes-video-lectures-and-practice-questions-for-each-subject",
+      "title": "Create Study Material page with subject-wise organization for History, Geography, Polity, Economy, Science, Maths, Reasoning, English, and Hindi with downloadable notes, video lectures, and practice questions for each subject",
       "reqIds": [
         "REQ-21"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-an-admin-dashboard-landing-page-that-displays-navigation-cards-for-managing-courses-videos-notes-tests-current-affairs-branding-logo-colors-and-viewing-registered-students-include-statistics-overview-showing-total-counts-for-each-content-type",
-      "title": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-enhance-the-existing-managecourses-admin-page-to-support-editing-and-deleting-courses-in-addition-to-adding-new-courses-display-a-list-of-all-existing-courses-with-edit-and-delete-buttons-for-each-course",
-      "title": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-video-management-admin-page-where-admins-can-add-youtube-video-links-with-metadata-title-category-description-edit-existing-videos-and-delete-videos-display-all-videos-in-a-searchable-and-filterable-list",
-      "title": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
+      "id": "feature-create-geography-special-page-with-dedicated-sections-for-physical-geography-human-geography-indian-geography-climatology-oceanography-models-theories-upsc-optional-and-university-content-with-in-depth-articles-diagrams-and-video-explanations",
+      "title": "Create Geography Special page with dedicated sections for Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, and University content with in-depth articles, diagrams, and video explanations",
       "reqIds": [
         "REQ-24"
       ],
       "version": 1
     },
     {
-      "id": "feature-enhance-the-existing-managetests-admin-page-to-support-editing-and-deleting-test-series-display-a-list-of-all-existing-tests-with-edit-and-delete-buttons-and-allow-admins-to-modify-questions-within-a-test",
-      "title": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-enhance-the-existing-managenotes-admin-page-to-support-editing-and-deleting-notes-display-a-list-of-all-uploaded-notes-with-subject-title-and-action-buttons-for-each-note",
-      "title": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
+      "id": "feature-update-admin-dashboard-to-support-managing-all-new-exam-categories-school-education-content-and-enhanced-ai-features-with-appropriate-crud-interfaces",
+      "title": "Update admin dashboard to support managing all new exam categories, school education content, and enhanced AI features with appropriate CRUD interfaces",
       "reqIds": [
         "REQ-26"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-enhance-the-existing-managecurrentaffairs-admin-page-to-support-editing-and-deleting-current-affairs-entries-display-a-list-of-all-current-affairs-posts-with-type-daily-weekly-monthly-date-and-action-buttons",
-      "title": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
-      "reqIds": [
-        "REQ-27"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-branding-settings-admin-page-where-admins-can-upload-a-new-logo-image-preview-it-and-update-the-logo-used-throughout-the-platform-store-the-logo-as-a-generated-image-asset",
-      "title": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
-      "reqIds": [
-        "REQ-28"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-student-management-admin-page-that-displays-a-searchable-and-filterable-table-of-all-registered-students-showing-name-email-registration-date-and-activity-status",
-      "title": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
-      "reqIds": [
-        "REQ-29"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-navigation-component-to-dynamically-load-and-display-the-logo-from-backend-configuration-instead-of-using-a-hardcoded-path-allowing-logo-changes-from-the-branding-settings-page-to-reflect-immediately",
-      "title": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
-      "reqIds": [
-        "REQ-31"
       ],
       "version": 1
     }
@@ -261,116 +129,191 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Home page with logo, tagline, courses list, latest updates, WhatsApp/YouTube links, and founder info",
+      "summary": "Competitive Exams section with UPSC and all State PCS exams (UPPCS, BPSC, MPPSC, RPSC, etc.) including Prelims, Mains, Optional, Interview, Notes, and Test Series",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Courses section with competitive exams (UPSC, UPPCS, SSC, Railway, Banking, TET/CTET, Police, NDA/CDS, University Geography) containing syllabus, video lectures, notes, PYQ, and test series",
+      "summary": "School Education section covering Classes 1-12 for all boards (CBSE, ICSE, UP Board, Bihar Board, etc.) with subject-wise notes, videos, question banks, and sample papers",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Video classes page with embedded YouTube videos for Geography, Current Affairs, GS, and Exam Strategy",
+      "summary": "SSC Exams section covering all SSC exams (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable) with syllabus, previous papers, notes, and test series",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Notes section with downloadable PDFs for History, Geography, Polity, Economy, Science, and Current Affairs",
+      "summary": "Railway Exams section covering RRB NTPC, Group D, ALP, Technician, JE, RPF Constable, and RPF SI",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-5",
-      "summary": "Test series section with daily quiz, weekly test, and full length test (Google Form integration)",
+      "summary": "Police Exams section covering UP Police, Bihar Police, MP Police, Delhi Police, Rajasthan Police, Haryana Police, SSC GD, CAPF, and other states",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-6",
-      "summary": "Current affairs section with daily updates, weekly PDFs, and monthly magazine",
+      "summary": "Teaching Exams section covering CTET, UPTET, HTET, REET, MPTET, Super TET, KVS, NVS, DSSSB, and State TET",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-7",
-      "summary": "About Us page describing platform mission and founder (Gyanendra Singh)",
+      "summary": "Banking Exams section covering IBPS PO/Clerk, SBI PO/Clerk, RBI Grade B, NABARD, and LIC AAO",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-8",
-      "summary": "Contact page with mobile number, email, and WhatsApp button",
+      "summary": "Defence Exams section covering NDA, CDS, AFCAT, Agniveer, Navy, and Airforce",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-9",
-      "summary": "Student registration functionality",
+      "summary": "AI Learning section with Ask AI Teacher, AI Notes Generator, AI Test Generator, AI Study Planner, and Doubt Solver",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-10",
-      "summary": "AI Learning Zone page with Ask AI Teacher, Generate Notes, Create Test, Exam Strategy, and Doubt Solver sections",
+      "summary": "Study Material section covering History, Geography, Polity, Economy, Science, Maths, Reasoning, English, and Hindi",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-11",
-      "summary": "AI Teacher chatbot for 24/7 student queries on Geography, UPSC preparation, notes, etc.",
+      "summary": "Video Classes section with YouTube integration (@singhgyanacademy)",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-12",
-      "summary": "AI Notes Generator allowing students to request subject-specific notes with PDF generation and revision points",
+      "summary": "Test Series section with Daily Quiz, Weekly Test, Full Mock, and PYQ Practice",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-13",
-      "summary": "AI Test Generator for MCQ tests, practice questions, mock tests, and PYQ patterns",
+      "summary": "Geography Special section covering Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, and University content",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-14",
-      "summary": "AI Exam Strategy Advisor providing study plans, book recommendations, and timetables",
+      "summary": "Current Affairs Hub with Daily, Weekly, Monthly updates and Quiz",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-15",
-      "summary": "AI Geography Expert feature with diagrams, maps, notes, concepts, and university-level content",
+      "summary": "Main navigation menu with Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, and Contact pages",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-16",
-      "summary": "AI Current Affairs Generator for daily updates, quizzes, and monthly PDFs",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Complete Admin Panel with Dashboard, Course Management (add/edit/delete), Video Upload (YouTube links or direct upload), Test Management (questions/test creation), Notes Upload (PDF files), Current Affairs (daily/weekly updates), Logo & Branding (logo/colors), and Student Management (view registered students)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-26",
-      "summary": "Update backend main.mo to add CRUD endpoints for updateCourse, deleteCourse, updateTest, deleteTest, updateNote, deleteNote, updateCurrentAffair, deleteCurrentAffair, updateLogo, and getAllStudents with proper admin authorization checks.",
+      "id": "AR-20",
+      "summary": "Extend backend CourseCategory enum to include all State PCS exams: UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, KeralaPSC, PunjabPSC, OtherStatesPCS",
       "reqIds": [
-        "REQ-30"
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Extend backend to support school education with new data types for Classes (1-12), Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards), and content types (Notes, Videos, Question Banks, Sample Papers)",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Extend backend CourseCategory enum to include SSC exams: SSC_CGL, SSC_CHSL, SSC_GD, SSC_MTS, SSC_CPO, SSC_Stenographer, SSC_JE, SSC_SelectionPost, SSC_Constable",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Extend backend CourseCategory enum to include Railway exams: RRB_NTPC, RRB_GroupD, RRB_ALP, RRB_Technician, RRB_JE, RPF_Constable, RPF_SI",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Extend backend CourseCategory enum to include Police exams: UP_Police, Bihar_Police, MP_Police, Delhi_Police, Rajasthan_Police, Haryana_Police, CAPF, OtherStatesPolice",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Extend backend CourseCategory enum to include Teaching exams: CTET, UPTET, HTET, REET, MPTET, SuperTET, KVS, NVS, DSSSB, StateTET",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Extend backend CourseCategory enum to include Banking exams: IBPS_PO, IBPS_Clerk, SBI_PO, SBI_Clerk, RBI_GradeB, NABARD, LIC_AAO",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Extend backend CourseCategory enum to include Defence exams: NDA, CDS, AFCAT, Agniveer, Navy, Airforce",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Update AI Learning Zone page to include AI Study Planner and Doubt Solver features alongside existing AI Teacher, Notes Generator, Test Generator, Exam Strategy Advisor, Geography Expert, and Current Affairs Generator",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Update Video Classes page to integrate YouTube channel @singhgyanacademy with organized playlists by exam category and subject, replacing the current placeholder content",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Update Test Series page to include PYQ Practice section alongside existing Daily Quiz, Weekly Test, and Full Mock tabs",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Update Current Affairs Hub to include Quiz section alongside existing Daily, Weekly, and Monthly tabs, with interactive quizzes based on current affairs content",
+      "reqIds": [
+        "REQ-25"
       ],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
   "projectName": "SinghGyanAcademy",
   "clarification_mode": "instant",
   "clarification_rounds": 0

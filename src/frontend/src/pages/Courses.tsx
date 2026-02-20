@@ -15,12 +15,12 @@ export default function Courses() {
   const categories: CourseCategory[] = [
     CourseCategory.upsc,
     CourseCategory.uppcs,
-    CourseCategory.ssc,
-    CourseCategory.railway,
-    CourseCategory.banking,
-    CourseCategory.tet_ctet,
-    CourseCategory.police,
-    CourseCategory.nda_cds,
+    CourseCategory.sscCGL,
+    CourseCategory.rrbNTPC,
+    CourseCategory.ibpsPO,
+    CourseCategory.ctet,
+    CourseCategory.upPolice,
+    CourseCategory.nda,
     CourseCategory.university_geography,
   ];
 

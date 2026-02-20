@@ -1,209 +1,414 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Build complete admin panel with dashboard, content management, and branding controls",
+  "title": "Transform SinghGyanAcademy into All India Mega Education Platform",
   "requirements": [
     {
-      "id": "REQ-22",
-      "summary": "Create admin dashboard landing page with navigation cards and statistics overview",
+      "id": "REQ-1",
+      "summary": "Update main navigation menu to include 11 menu items: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact",
       "acceptanceCriteria": [
-        "Dashboard displays 7 navigation cards: Course Management, Video Management, Test Management, Notes Management, Current Affairs, Branding Settings, Student Management",
-        "Each card shows the total count of items (courses, videos, notes, tests, students)",
-        "Cards are clickable and navigate to respective management pages",
-        "Dashboard is only accessible to authenticated admin users"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/Dashboard.tsx",
-          "operation": "modify",
-          "description": "Enhance the existing admin dashboard to display 7 navigation cards with icons and item counts. Add cards for Video Management, Branding Settings, and Student Management. Fetch counts using backend queries (getAllVideos, getAllStudents, getLogo) and display total courses, videos, notes, tests, current affairs, and students. Use the authorization component to verify admin access before rendering dashboard content. Each card should navigate to its respective management page using React Router Link components."
-        }
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "summary": "Enhance ManageCourses to support editing and deleting courses with course list display",
-      "acceptanceCriteria": [
-        "Course list displays all courses with their category, title, and action buttons",
-        "Edit button opens a form pre-populated with existing course data",
-        "Delete button removes course after confirmation prompt",
-        "Add new course functionality remains intact"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/ManageCourses.tsx",
-          "operation": "modify",
-          "description": "Add course listing section above the add course form. Fetch all courses using getSortedCoursesByCategory query. Display each course with category badge, syllabus preview, video count, notes count, and action buttons. Implement edit functionality that populates the form with existing course data (category, syllabus, videoLectures, notes, PYQs, testSeries). Add delete button with confirmation dialog that calls deleteCourse backend method. Use React state to toggle between add and edit modes. Maintain existing FileUploadWithProgress integration for notes and PYQ files."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add mutation hooks for updateCourse and deleteCourse operations. The updateCourse mutation should accept course ID and all course fields (category, syllabus, videoLectures, notesFiles as ExternalBlob[], pyqFiles as ExternalBlob[], testSeries). The deleteCourse mutation should accept course ID. Both mutations should invalidate the courses query cache on success to trigger refetch of course lists."
-        }
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "summary": "Create video management admin page with add, edit, delete, and searchable list functionality",
-      "acceptanceCriteria": [
-        "Form accepts YouTube URL, video title, category selection (Geography Classes, Current Affairs, GS Classes, Exam Strategy), and optional description",
-        "Video list shows thumbnail preview, title, category, and action buttons",
-        "Edit functionality allows modifying video metadata",
-        "Delete functionality removes video after confirmation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/ManageVideos.tsx",
-          "operation": "create",
-          "description": "Create new admin page for video management with form for adding YouTube videos (title, youtubeLink, category dropdown with options: Geography Classes, Current Affairs, GS Classes, Exam Strategy, and description textarea). Display searchable list of all videos fetched via getAllVideos query with thumbnail preview using YouTubeEmbed component, title, category badge, description preview, and edit/delete action buttons. Implement edit mode that populates form with existing video data. Add delete confirmation dialog. Use authorization component to verify admin access. Include search/filter input to filter videos by title or category."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add mutation hooks for addVideo, updateVideo, and deleteVideo operations. The updateVideo mutation should accept video ID, title, category, description, and youtubeLink. The deleteVideo mutation should accept video ID. All mutations should invalidate the videos query cache on success."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for the new ManageVideos admin page at path '/admin/videos' within the existing admin routes structure."
-        }
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "summary": "Enhance ManageTests to support editing and deleting tests with test list and question management",
-      "acceptanceCriteria": [
-        "Test list displays all tests with title, type, question count, and action buttons",
-        "Edit button opens form with existing test data and questions",
-        "Admins can add, edit, or remove individual questions within a test",
-        "Delete button removes entire test after confirmation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/ManageTests.tsx",
-          "operation": "modify",
-          "description": "Add test listing section that displays all tests grouped by assessment type (dailyQuiz, weeklyTest, fullLengthTest). Fetch tests using getTestsByType queries for each type. Display test cards showing type badge, question count, and edit/delete buttons. Implement edit mode that loads existing test data including all questions into the form. Add ability to modify individual questions, add new questions, or remove questions from the list. Include delete confirmation dialog. Maintain existing assessment type dropdown and dynamic question management. Use React state to track edit mode and selected test."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add mutation hooks for updateTest and deleteTest operations. The updateTest mutation should accept test ID, assessmentType, and questions array. The deleteTest mutation should accept test ID. Both mutations should invalidate test queries cache on success."
-        }
-      ]
-    },
-    {
-      "id": "REQ-26",
-      "summary": "Enhance ManageNotes to support editing and deleting notes with notes list display",
-      "acceptanceCriteria": [
-        "Notes list displays all notes grouped by subject with title, upload date, and action buttons",
-        "Edit functionality allows changing note title and re-uploading PDF",
-        "Delete button removes note after confirmation",
-        "Upload new notes functionality remains intact"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/ManageNotes.tsx",
-          "operation": "modify",
-          "description": "Add notes listing section that displays all existing notes grouped by subject using getAllNotes query. For each note, show subject badge, file preview link, upload date (if available from note ID or metadata), and edit/delete action buttons. Implement edit mode that allows changing the subject selection and re-uploading PDF file using FileUploadWithProgress component. Add delete confirmation dialog. Maintain existing add note form functionality. Use tabs or accordions to organize notes by subject for better navigation."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add mutation hooks for updateNote and deleteNote operations. The updateNote mutation should accept note ID, subject, and file as ExternalBlob. The deleteNote mutation should accept note ID. Both mutations should invalidate the notes query cache on success."
-        }
-      ]
-    },
-    {
-      "id": "REQ-27",
-      "summary": "Enhance ManageCurrentAffairs to support editing and deleting entries with filterable list",
-      "acceptanceCriteria": [
-        "Current affairs list displays all entries sorted by date with type badge and action buttons",
-        "Edit button opens form with existing content and PDF link",
-        "Delete button removes entry after confirmation",
-        "Filtering by type (daily/weekly/monthly) is available"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/ManageCurrentAffairs.tsx",
-          "operation": "modify",
-          "description": "Add current affairs listing section displaying all entries fetched via getAllCurrentAffairs query, sorted by ID (descending for newest first). Show type badge (dailyUpdate, weeklyPDF, monthlyMagazine), content preview (first 100 characters), file download link if present, and edit/delete buttons. Implement type filter dropdown to filter entries by CurrentAffairsType. Add edit mode that populates form with existing type, content, and file. Include delete confirmation dialog. Maintain existing add current affair form with type selection, content textarea, and optional PDF upload using FileUploadWithProgress component."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add mutation hooks for updateCurrentAffair and deleteCurrentAffair operations. The updateCurrentAffair mutation should accept current affair ID, type, content, and optional file as ExternalBlob. The deleteCurrentAffair mutation should accept current affair ID. Both mutations should invalidate current affairs query cache on success."
-        }
-      ]
-    },
-    {
-      "id": "REQ-28",
-      "summary": "Create branding settings admin page for logo upload and preview",
-      "acceptanceCriteria": [
-        "File upload accepts image files (PNG, JPG, SVG) for logo replacement",
-        "Logo preview shows before and after comparison",
-        "Save button updates the logo reference in backend configuration",
-        "New logo immediately reflects in Navigation component after save",
-        "Logo file is stored in frontend/public/assets/generated directory"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/BrandingSettings.tsx",
-          "operation": "create",
-          "description": "Create new admin page for branding settings with logo management section. Display current logo fetched via getLogo backend query. Provide file upload input accepting image formats (PNG, JPG, SVG) with preview of selected new logo before saving. Show side-by-side comparison of current and new logo. Include save button that calls updateLogo backend method with new logo data as Uint8Array (Logo type). After successful save, invalidate logo query cache and show success message. Use authorization component to verify admin access. Reference the generated logo asset at frontend/public/assets/generated/logo.dim_256x256.png as the default logo visualization."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add query hook for getLogo to fetch current logo from backend. Add mutation hook for updateLogo that accepts Logo (Uint8Array) and invalidates logo query cache on success. Ensure the logo query is exposed for use in both BrandingSettings and Navigation components."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for the new BrandingSettings admin page at path '/admin/branding' within the existing admin routes structure."
-        }
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "summary": "Create student management admin page with searchable and filterable student table",
-      "acceptanceCriteria": [
-        "Table displays all student profiles with columns: Name, Email, Registration Date, Last Active",
-        "Search functionality filters students by name or email",
-        "Pagination displays 20 students per page",
-        "Export to CSV button downloads complete student list"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/StudentManagement.tsx",
-          "operation": "create",
-          "description": "Create new admin page displaying all registered students in a table using getAllStudents backend query. Table columns should include Name, Email, Registration Date (derived from student ID if timestamp-based), and Last Active (placeholder or future feature). Implement search input that filters students by name or email (client-side filtering). Add pagination controls to display 20 students per page with next/previous buttons and page number display. Include Export to CSV button that generates CSV file from student data and triggers download. Use authorization component to verify admin access. Style table using shadcn/ui table components for consistency."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add query hook for getAllStudents that fetches complete array of StudentProfile objects from backend. Ensure the query is only enabled when user is authenticated and has admin role."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for the new StudentManagement admin page at path '/admin/students' within the existing admin routes structure."
-        }
-      ]
-    },
-    {
-      "id": "REQ-31",
-      "summary": "Update Navigation component to dynamically load logo from backend configuration",
-      "acceptanceCriteria": [
-        "Navigation component fetches current logo URL from backend on mount",
-        "Logo image src updates when branding settings are saved",
-        "Fallback to default logo if backend returns no custom logo",
-        "Logo maintains responsive sizing and accessibility attributes"
+        "Navigation bar displays all 11 menu items in the specified order",
+        "All menu items link to their respective pages",
+        "Mobile navigation includes all menu items"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add getLogo query using the hook from useQueries to fetch current logo on component mount. Convert Logo (Uint8Array) to data URL or blob URL for img src attribute. Display fetched logo if available, otherwise fallback to the default generated logo asset at frontend/public/assets/generated/logo.dim_256x256.png. Ensure logo updates reactively when branding settings are saved (React Query cache invalidation handles this automatically). Maintain existing responsive sizing classes and add appropriate alt text for accessibility. Keep existing navigation structure and links intact."
+          "description": "Update navigation links array to include all 11 menu items in order: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact. Ensure mobile menu toggle displays all items. Update routing paths to match new structure."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Update site tagline to 'Ek Kadam Nishulk Shiksha Ki Aur' and subtitle to 'India's Smart Learning Platform'",
+      "acceptanceCriteria": [
+        "Tagline displays 'Ek Kadam Nishulk Shiksha Ki Aur' on the homepage hero section",
+        "Subtitle 'India's Smart Learning Platform' appears below the tagline"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Update hero section to display tagline 'Ek Kadam Nishulk Shiksha Ki Aur' as primary heading and subtitle 'India's Smart Learning Platform' as secondary text below it. Update typography styling to emphasize the new branding."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create Competitive Exams landing page with navigation to all exam categories: Civil Services, SSC, Railway, Police, Teaching, Banking, Defence",
+      "acceptanceCriteria": [
+        "Competitive Exams page displays all 7 exam category cards",
+        "Each category card shows icon, name, and description",
+        "Clicking a category navigates to its dedicated page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CompetitiveExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 7 exam category cards (Civil Services, SSC Exams, Railway Exams, Police Exams, Teaching Exams, Banking Exams, Defence Exams) in a responsive grid. Each card includes icon from frontend/public/assets/generated/exam-icons.dim_64x64.png (use CSS sprite or separate sections), category name, brief description, and navigation to respective detail pages. Include page header with title and introduction text."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /competitive-exams that renders the CompetitiveExams page component. Register route in the router configuration."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create Civil Services Exams page with UPSC section (Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS section with individual pages for 18 state exams",
+      "acceptanceCriteria": [
+        "Civil Services page displays UPSC section with 6 subsections",
+        "All State PCS section lists all 18 state exams",
+        "Each state exam links to a detail page showing Syllabus, Notes, Videos, Test Series"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CivilServicesExams.tsx",
+          "operation": "create",
+          "description": "Create page with two main sections: UPSC (displaying 6 subsection cards: Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS (grid of 18 state exam cards: UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, Other States). Each state exam card navigates to a dedicated detail page with tabs for Syllabus, Notes, Videos, Test Series. Use backend getCoursesByCategory to fetch relevant course data for each state PCS."
+        },
+        {
+          "path": "frontend/src/pages/StatePCSDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual state PCS exams with URL parameter for state code. Display tabs for Syllabus, Notes, Videos, Test Series. Fetch course data using getCoursesByCategory with appropriate state PCS category enum value. Render content similar to CourseDetail page structure."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/civil-services and /competitive-exams/civil-services/:state to router configuration. Register CivilServicesExams and StatePCSDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Create School Education landing page with Classes (1-12) section and Boards section (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards)",
+      "acceptanceCriteria": [
+        "School Education page displays 12 class cards and 8 board cards",
+        "Each class page shows tabs for Subject Wise Notes, Videos, Question Bank, Sample Papers",
+        "Board filter works across all class content"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SchoolEducation.tsx",
+          "operation": "create",
+          "description": "Create landing page with two main sections: Classes (12 cards for Class 1-12) and Boards (8 cards for CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards). Each class card navigates to a class detail page. Include board selector that can be applied as filter when navigating to class pages."
+        },
+        {
+          "path": "frontend/src/pages/ClassDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual classes with URL parameter for class number and optional board filter. Display tabs for Subject Wise Notes, Videos, Question Bank, Sample Papers. Note: Backend support for school education content will be added separately. For now, show placeholder structure with appropriate messaging that content is being added. Include board filter dropdown that updates displayed content."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /school-education and /school-education/class/:classNumber to router configuration. Register SchoolEducation and ClassDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Create SSC Exams page displaying all 9 SSC exam categories with detail pages showing Syllabus, Previous Papers, Notes, and Test Series tabs",
+      "acceptanceCriteria": [
+        "SSC Exams page displays all 9 exam category cards",
+        "Each exam detail page shows 4 tabs: Syllabus, Previous Papers, Notes, Test Series",
+        "Content loads dynamically based on selected exam"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SSCExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 9 SSC exam category cards (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable) in responsive grid. Each card shows exam icon, name, brief description, and navigates to SSCExamDetail page with exam category parameter. Use backend CourseCategory enum values: SSC_CGL, SSC_CHSL, SSC_GD, SSC_MTS, SSC_CPO, SSC_Stenographer, SSC_JE, SSC_SelectionPost, SSC_Constable."
+        },
+        {
+          "path": "frontend/src/pages/SSCExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual SSC exams with URL parameter for exam category. Display tabs for Syllabus, Previous Papers, Notes, Test Series. Fetch course data using getCoursesByCategory with SSC exam enum value. Render syllabus as list, previous papers as downloadable PDFs from pyq array, notes as downloadable files, and test series links. Structure similar to CourseDetail but with SSC-specific labeling."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/ssc and /competitive-exams/ssc/:examType to router configuration. Register SSCExams and SSCExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Create Railway Exams page displaying all 7 railway exam categories with detail pages",
+      "acceptanceCriteria": [
+        "Railway Exams page displays all 7 exam categories",
+        "Each exam has a detail page with syllabus, notes, and test series"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RailwayExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 7 railway exam category cards (RRB NTPC, RRB Group D, RRB ALP, RRB Technician, RRB JE, RPF Constable, RPF SI) in responsive grid. Each card navigates to RailwayExamDetail page with exam category parameter. Use backend CourseCategory enum values: RRB_NTPC, RRB_GroupD, RRB_ALP, RRB_Technician, RRB_JE, RPF_Constable, RPF_SI."
+        },
+        {
+          "path": "frontend/src/pages/RailwayExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual railway exams with URL parameter for exam category. Display tabs for Syllabus, Notes, Previous Papers, Test Series. Fetch course data using getCoursesByCategory with railway exam enum value. Render content with railway exam-specific branding and structure."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/railway and /competitive-exams/railway/:examType to router configuration. Register RailwayExams and RailwayExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Create Police Exams page displaying all police exam categories with state-wise organization",
+      "acceptanceCriteria": [
+        "Police Exams page displays all police exam categories",
+        "Page includes link to SSC GD (cross-referenced from SSC section)",
+        "Each exam detail page shows relevant preparation material"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/PoliceExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying police exam category cards organized by state (UP Police, Bihar Police, MP Police, Delhi Police, Rajasthan Police, Haryana Police, CAPF, Other States). Include special card for SSC GD with link to SSC section (/competitive-exams/ssc/SSC_GD). Each state police card navigates to PoliceExamDetail page. Use backend CourseCategory enum values: UP_Police, Bihar_Police, MP_Police, Delhi_Police, Rajasthan_Police, Haryana_Police, CAPF, OtherStatesPolice."
+        },
+        {
+          "path": "frontend/src/pages/PoliceExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual police exams with URL parameter for exam category. Display tabs for Syllabus, Previous Papers, Notes, Test Series. Fetch course data using getCoursesByCategory with police exam enum value. Include physical standards information section if available."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/police and /competitive-exams/police/:examType to router configuration. Register PoliceExams and PoliceExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Create Teaching Exams page displaying all 10 teaching exam categories with detail pages",
+      "acceptanceCriteria": [
+        "Teaching Exams page displays all 10 exam categories",
+        "Each exam detail page provides syllabus, preparation material, and tests"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/TeachingExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 10 teaching exam category cards (CTET, UPTET, HTET, REET, MPTET, Super TET, KVS, NVS, DSSSB, State TET) in responsive grid. Each card navigates to TeachingExamDetail page with exam category parameter. Use backend CourseCategory enum values: CTET, UPTET, HTET, REET, MPTET, SuperTET, KVS, NVS, DSSSB, StateTET."
+        },
+        {
+          "path": "frontend/src/pages/TeachingExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual teaching exams with URL parameter for exam category. Display tabs for Syllabus, Notes, Test Series, Paper Pattern. Fetch course data using getCoursesByCategory with teaching exam enum value. Include eligibility criteria section."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/teaching and /competitive-exams/teaching/:examType to router configuration. Register TeachingExams and TeachingExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Create Banking Exams page displaying all 7 banking exam categories with detail pages",
+      "acceptanceCriteria": [
+        "Banking Exams page displays all 7 exam categories",
+        "Each exam detail page shows comprehensive preparation resources"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/BankingExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 7 banking exam category cards (IBPS PO, IBPS Clerk, SBI PO, SBI Clerk, RBI Grade B, NABARD, LIC AAO) in responsive grid. Each card navigates to BankingExamDetail page with exam category parameter. Use backend CourseCategory enum values: IBPS_PO, IBPS_Clerk, SBI_PO, SBI_Clerk, RBI_GradeB, NABARD, LIC_AAO."
+        },
+        {
+          "path": "frontend/src/pages/BankingExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual banking exams with URL parameter for exam category. Display tabs for Syllabus, Previous Papers, Notes, Test Series. Fetch course data using getCoursesByCategory with banking exam enum value. Include exam pattern and cut-off trends section."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/banking and /competitive-exams/banking/:examType to router configuration. Register BankingExams and BankingExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "summary": "Create Defence Exams page displaying all 6 defence exam categories with detail pages",
+      "acceptanceCriteria": [
+        "Defence Exams page displays all 6 exam categories",
+        "Each exam detail page includes syllabus and preparation guidance"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DefenceExams.tsx",
+          "operation": "create",
+          "description": "Create landing page displaying 6 defence exam category cards (NDA, CDS, AFCAT, Agniveer, Navy, Airforce) in responsive grid. Each card navigates to DefenceExamDetail page with exam category parameter. Use backend CourseCategory enum values: NDA, CDS, AFCAT, Agniveer, Navy, Airforce."
+        },
+        {
+          "path": "frontend/src/pages/DefenceExamDetail.tsx",
+          "operation": "create",
+          "description": "Create detail page for individual defence exams with URL parameter for exam category. Display tabs for Syllabus, Physical Standards, Notes, Test Series. Fetch course data using getCoursesByCategory with defence exam enum value. Include physical fitness requirements and medical standards sections."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add routes for /competitive-exams/defence and /competitive-exams/defence/:examType to router configuration. Register DefenceExams and DefenceExamDetail components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "summary": "Update AI Learning Zone page to include AI Study Planner and Doubt Solver features alongside existing 6 features",
+      "acceptanceCriteria": [
+        "AI Learning Zone displays all 8 AI features in a grid layout",
+        "AI Study Planner generates personalized study timetables based on exam date and syllabus",
+        "Doubt Solver allows students to ask specific questions and receive detailed explanations"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AIStudyPlanner.tsx",
+          "operation": "create",
+          "description": "Create component that generates personalized study timetables. Include form inputs for exam name, exam date, syllabus topics (multi-select or textarea), and available study hours per day. Generate mock study plan with daily/weekly breakdown, topic allocation, revision schedules, and milestone tracking. Display plan in calendar or timeline view."
+        },
+        {
+          "path": "frontend/src/components/AIDoubtSolver.tsx",
+          "operation": "create",
+          "description": "Create component with question input form allowing students to ask specific doubts with subject selection dropdown. Generate detailed mock explanations with concept breakdown, step-by-step solutions, related topics, and additional practice suggestions. Include history of asked questions for reference."
+        },
+        {
+          "path": "frontend/src/pages/AILearningZone.tsx",
+          "operation": "modify",
+          "description": "Add two new tabs for AI Study Planner and Doubt Solver. Update tabs array to include 8 total features. Import and render AIStudyPlanner and AIDoubtSolver components in respective tab panels. Maintain existing tab structure for AI Teacher, Notes Generator, Test Generator, Exam Strategy, Geography Expert, and Current Affairs Generator."
+        },
+        {
+          "path": "frontend/src/components/AIFeaturesShowcase.tsx",
+          "operation": "modify",
+          "description": "Update grid to display 8 AI feature cards instead of 6. Add cards for AI Study Planner (with calendar/schedule icon) and Doubt Solver (with question mark or help icon). Ensure responsive grid layout (2 columns on mobile, 3-4 on desktop). All cards navigate to AILearningZone with appropriate tab selection."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Create Study Material page with subject-wise organization for 9 subjects with downloadable notes, video lectures, and practice questions",
+      "acceptanceCriteria": [
+        "Study Material page displays all 9 subject categories",
+        "Each subject page shows organized content with notes, videos, and practice materials",
+        "Content can be filtered by difficulty level and exam relevance"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/StudyMaterial.tsx",
+          "operation": "create",
+          "description": "Create page displaying 9 subject categories (History, Geography, Polity, Economy, Science, Maths, Reasoning, English, Hindi) as tabs or cards. Each subject section fetches notes using getNotesBySubject hook and displays downloadable PDF files. Include filter dropdowns for difficulty level (Beginner, Intermediate, Advanced) and exam relevance (UPSC, SSC, Railway, etc.). Show video lecture count and practice question count per subject. Layout similar to Notes page but expanded with filtering capabilities."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /study-material to router configuration. Register StudyMaterial component. Ensure navigation menu update in REQ-1 includes this route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "summary": "Update Video Classes page to integrate YouTube channel @singhgyanacademy with organized playlists by exam category and subject",
+      "acceptanceCriteria": [
+        "Video Classes page displays embedded playlists from @singhgyanacademy YouTube channel",
+        "Videos are organized by exam category and subject",
+        "Each video shows title, duration, and thumbnail"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/VideoClasses.tsx",
+          "operation": "modify",
+          "description": "Replace placeholder content with organized video sections. Update to fetch all videos using getAllVideos hook instead of limited geography course videos. Group videos by category (Geography, Current Affairs, GS, Strategy, UPSC, SSC, Railway, etc.). Display each video using YouTubeEmbed component with title, description, and category label. Add search and filter functionality by category. Include prominent link/button to @singhgyanacademy YouTube channel for full playlist access. Organize in grid layout with video cards showing thumbnails and metadata."
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Update Test Series page to include PYQ Practice section alongside existing Daily Quiz, Weekly Test, and Full Mock tabs",
+      "acceptanceCriteria": [
+        "Test Series page displays 4 tabs: Daily Quiz, Weekly Test, Full Mock, PYQ Practice",
+        "PYQ Practice section shows previous year questions organized by exam and year",
+        "Users can filter PYQs by exam type, year, and subject"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/TestSeries.tsx",
+          "operation": "modify",
+          "description": "Add fourth tab for PYQ Practice. Create section that displays previous year question papers organized by exam category (UPSC, SSC, Railway, Banking, etc.). For each exam, show available PYQ papers fetched from course data (pyq field from getCoursesByCategory). Include filter dropdowns for exam type, year, and subject. Display PYQ papers as downloadable PDFs with metadata (exam name, year, subject). Maintain existing tab structure for Daily Quiz, Weekly Test, Full Mock."
+        },
+        {
+          "path": "frontend/src/components/PYQCard.tsx",
+          "operation": "create",
+          "description": "Create card component for displaying individual PYQ papers. Show exam name, year, subject, number of questions, and download button for PDF. Include preview icon that could show first few questions. Style consistently with TestCard component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Create Geography Special page with 8 specialized geography topics including detailed articles, diagrams, and video content",
+      "acceptanceCriteria": [
+        "Geography Special page displays all 8 specialized geography topics",
+        "Each topic section includes detailed articles, visual diagrams, and video content",
+        "Content is organized by difficulty level (beginner, intermediate, advanced)",
+        "UPSC Optional section provides comprehensive optional geography coverage"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/GeographySpecial.tsx",
+          "operation": "create",
+          "description": "Create comprehensive geography page with tabs or sections for 8 topics: Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, University. Each section displays rich content including detailed articles (fetched from notes with subject=geography), embedded videos (from video classes filtered by geography category), and visual diagrams. Include difficulty level selector (Beginner, Intermediate, Advanced) that filters content. UPSC Optional tab provides exam-specific coverage with syllabus mapping. University tab includes academic-level content. Use grid layout for topics with expandable content sections."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /geography-special to router configuration. Register GeographySpecial component. Ensure navigation menu update in REQ-1 includes this route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "summary": "Update Current Affairs Hub to include Quiz section alongside existing Daily, Weekly, and Monthly tabs",
+      "acceptanceCriteria": [
+        "Current Affairs page displays 4 tabs: Daily, Weekly, Monthly, Quiz",
+        "Quiz section generates questions from recent current affairs content",
+        "Users receive instant feedback and explanations for quiz answers"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CurrentAffairs.tsx",
+          "operation": "modify",
+          "description": "Add fourth tab for Quiz. Create quiz section that generates multiple-choice questions based on recent current affairs content. Fetch daily/weekly current affairs using getCurrentAffairsByType and extract key topics to generate mock quiz questions. Display quiz interface with questions, options, submit button, and instant feedback with explanations. Track user scores and show results summary. Include difficulty level selector and topic filter. Maintain existing tabs for Daily, Weekly, Monthly current affairs."
+        },
+        {
+          "path": "frontend/src/components/CurrentAffairsQuiz.tsx",
+          "operation": "create",
+          "description": "Create quiz component specifically for current affairs. Generate mock questions from current affairs content with 4 options each. Include timer, question navigation, answer selection, submit functionality, and results display with correct answers and explanations. Track user progress and show score at the end."
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "Update admin dashboard to support managing all new exam categories, school education content, and enhanced AI features",
+      "acceptanceCriteria": [
+        "Admin dashboard displays management cards for all new exam categories",
+        "School Education management includes class, board, and subject filters",
+        "AI features configuration panel allows updating AI response templates"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Update dashboard cards to reflect new exam categories. Add informational cards for State PCS (18 states), SSC (9 exams), Railway (7 exams), Police (8 exams), Teaching (10 exams), Banking (7 exams), Defence (6 exams). Update course management card description to mention support for all new categories. Add placeholder card for School Education management (noting backend support pending). Add AI Features card for future AI configuration. Maintain existing cards for courses, videos, notes, tests, current affairs, branding, students, leadership, static content."
+        },
+        {
+          "path": "frontend/src/pages/admin/ManageCourses.tsx",
+          "operation": "modify",
+          "description": "Update CourseCategory dropdown to include all new enum values from backend: State PCS categories (UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, KeralaPSC, PunjabPSC, OtherStatesPCS), SSC categories (SSC_CGL, SSC_CHSL, SSC_GD, SSC_MTS, SSC_CPO, SSC_Stenographer, SSC_JE, SSC_SelectionPost, SSC_Constable), Railway categories (RRB_NTPC, RRB_GroupD, RRB_ALP, RRB_Technician, RRB_JE, RPF_Constable, RPF_SI), Police categories (UP_Police, Bihar_Police, MP_Police, Delhi_Police, Rajasthan_Police, Haryana_Police, CAPF, OtherStatesPolice), Teaching categories (CTET, UPTET, HTET, REET, MPTET, SuperTET, KVS, NVS, DSSSB, StateTET), Banking categories (IBPS_PO, IBPS_Clerk, SBI_PO, SBI_Clerk, RBI_GradeB, NABARD, LIC_AAO), Defence categories (NDA, CDS, AFCAT, Agniveer, Navy, Airforce). Group categories by type in dropdown with section headers for better UX. Ensure CRUD operations work with all new categories."
         }
       ]
     }

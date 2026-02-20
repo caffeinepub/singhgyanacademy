@@ -1,145 +1,310 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T04:20:31.041Z",
+  "generatedAt": "2026-02-20T05:17:21.546Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 10,
-    "implemented": 9,
+    "total": 26,
+    "implemented": 14,
     "items": [
       {
-        "id": "REQ-22",
-        "summary": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
+        "id": "REQ-1",
+        "summary": "Update main navigation menu to include: Home, AI Learning, Competitive Exams, School Education, Video Classes, Study Material, Test Series, Current Affairs, Geography Special, About, Contact",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/admin/Dashboard.tsx"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/admin/Dashboard.tsx"
+          "frontend/src/components/Navigation.tsx"
         ]
       },
       {
-        "id": "REQ-23",
-        "summary": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/ManageCourses.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/ManageCourses.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-24",
-        "summary": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/ManageVideos.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/ManageVideos.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-25",
-        "summary": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/ManageTests.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/ManageTests.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-26",
-        "summary": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/ManageNotes.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/ManageNotes.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-27",
-        "summary": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/ManageCurrentAffairs.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/ManageCurrentAffairs.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-28",
-        "summary": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/BrandingSettings.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/BrandingSettings.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-29",
-        "summary": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/StudentManagement.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/StudentManagement.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-30",
-        "summary": "Update backend main.mo to add CRUD endpoints for updateCourse, deleteCourse, updateTest, deleteTest, updateNote, deleteNote, updateCurrentAffair, deleteCurrentAffair, updateLogo, and getAllStudents with proper admin authorization checks.",
+        "id": "REQ-10",
+        "summary": "Extend backend CourseCategory enum to include Railway exams: RRB_NTPC, RRB_GroupD, RRB_ALP, RRB_Technician, RRB_JE, RPF_Constable, RPF_SI",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-31",
-        "summary": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
+        "id": "REQ-11",
+        "summary": "Create Railway Exams page displaying all 7 railway exam categories with detail pages for each exam",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/RailwayExams.tsx",
+          "frontend/src/pages/RailwayExamDetail.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/RailwayExams.tsx",
+          "frontend/src/pages/RailwayExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-12",
+        "summary": "Extend backend CourseCategory enum to include Police exams: UP_Police, Bihar_Police, MP_Police, Delhi_Police, Rajasthan_Police, Haryana_Police, CAPF, OtherStatesPolice",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-13",
+        "summary": "Create Police Exams page displaying all police exam categories with state-wise organization",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/PoliceExams.tsx",
+          "frontend/src/pages/PoliceExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/PoliceExams.tsx",
+          "frontend/src/pages/PoliceExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Extend backend CourseCategory enum to include Teaching exams: CTET, UPTET, HTET, REET, MPTET, SuperTET, KVS, NVS, DSSSB, StateTET",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Create Teaching Exams page displaying all 10 teaching exam categories with detail pages for each exam",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/TeachingExams.tsx",
+          "frontend/src/pages/TeachingExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/TeachingExams.tsx",
+          "frontend/src/pages/TeachingExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Extend backend CourseCategory enum to include Banking exams: IBPS_PO, IBPS_Clerk, SBI_PO, SBI_Clerk, RBI_GradeB, NABARD, LIC_AAO",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Create Banking Exams page displaying all 7 banking exam categories with detail pages for each exam",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/BankingExams.tsx",
+          "frontend/src/pages/BankingExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/BankingExams.tsx",
+          "frontend/src/pages/BankingExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-18",
+        "summary": "Extend backend CourseCategory enum to include Defence exams: NDA, CDS, AFCAT, Agniveer, Navy, Airforce",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-19",
+        "summary": "Create Defence Exams page displaying all 6 defence exam categories with detail pages for each exam",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/DefenceExams.tsx",
+          "frontend/src/pages/DefenceExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/DefenceExams.tsx",
+          "frontend/src/pages/DefenceExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Update site tagline to 'Ek Kadam Nishulk Shiksha Ki Aur' and subtitle to 'India's Smart Learning Platform'",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Update AI Learning Zone page to include AI Study Planner and Doubt Solver features alongside existing AI Teacher, Notes Generator, Test Generator, Exam Strategy Advisor, Geography Expert, and Current Affairs Generator",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/AIStudyPlanner.tsx",
+          "frontend/src/components/AIDoubtSolver.tsx",
+          "frontend/src/pages/AILearningZone.tsx",
+          "frontend/src/components/AIFeaturesShowcase.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-21",
+        "summary": "Create Study Material page with subject-wise organization for History, Geography, Polity, Economy, Science, Maths, Reasoning, English, and Hindi with downloadable notes, video lectures, and practice questions for each subject",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/StudyMaterial.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/StudyMaterial.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Update Video Classes page to integrate YouTube channel @singhgyanacademy with organized playlists by exam category and subject, replacing the current placeholder content",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/pages/VideoClasses.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Update Test Series page to include PYQ Practice section alongside existing Daily Quiz, Weekly Test, and Full Mock tabs",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/pages/TestSeries.tsx",
+          "frontend/src/components/PYQCard.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-24",
+        "summary": "Create Geography Special page with dedicated sections for Physical Geography, Human Geography, Indian Geography, Climatology, Oceanography, Models & Theories, UPSC Optional, and University content with in-depth articles, diagrams, and video explanations",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/GeographySpecial.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/GeographySpecial.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-25",
+        "summary": "Update Current Affairs Hub to include Quiz section alongside existing Daily, Weekly, and Monthly tabs, with interactive quizzes based on current affairs content",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/pages/CurrentAffairs.tsx",
+          "frontend/src/components/CurrentAffairsQuiz.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-26",
+        "summary": "Update admin dashboard to support managing all new exam categories, school education content, and enhanced AI features with appropriate CRUD interfaces",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/admin/Dashboard.tsx",
+          "frontend/src/pages/admin/ManageCourses.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/admin/ManageCourses.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Create Competitive Exams landing page with navigation to all exam categories: Civil Services (UPSC/State PCS), SSC Exams, Railway Exams, Police Exams, Teaching Exams, Banking Exams, Defence Exams",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CompetitiveExams.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CompetitiveExams.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Create Civil Services Exams page with two main sections: UPSC (Prelims, Mains, Optional, Interview, Notes, Test Series) and All State PCS with individual pages for UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, Kerala PSC, Punjab PSC, and Other States",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CivilServicesExams.tsx",
+          "frontend/src/pages/StatePCSDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CivilServicesExams.tsx",
+          "frontend/src/pages/StatePCSDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Extend backend CourseCategory enum to include all State PCS exams: UPPCS, BPSC, MPPCS, RPSC, HPSC, UKPSC, JPSC, CGPSC, MPSC, GPSC, APPSC, TSPSC, WBPSC, TNPSC, KPSC, KeralaPSC, PunjabPSC, OtherStatesPCS",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Create School Education landing page with two main sections: Classes (1-12) and Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards). Each class page must display Subject Wise Notes, Videos, Question Bank, and Sample Papers",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SchoolEducation.tsx",
+          "frontend/src/pages/ClassDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SchoolEducation.tsx",
+          "frontend/src/pages/ClassDetail.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Extend backend to support school education with new data types for Classes (1-12), Boards (CBSE, ICSE, UP Board, Bihar Board, MP Board, Rajasthan Board, Maharashtra Board, Other State Boards), and content types (Notes, Videos, Question Banks, Sample Papers)",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Extend backend CourseCategory enum to include SSC exams: SSC_CGL, SSC_CHSL, SSC_GD, SSC_MTS, SSC_CPO, SSC_Stenographer, SSC_JE, SSC_SelectionPost, SSC_Constable",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Create SSC Exams page displaying all 9 SSC exam categories (CGL, CHSL, GD, MTS, CPO, Stenographer, JE, Selection Post, Constable). Each exam detail page must show Syllabus, Previous Papers, Notes, and Test Series tabs",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SSCExams.tsx",
+          "frontend/src/pages/SSCExamDetail.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SSCExams.tsx",
+          "frontend/src/pages/SSCExamDetail.tsx",
+          "frontend/src/App.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
     "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
@@ -147,18 +312,34 @@
     "frontend/src/App.tsx",
     "frontend/src/backend.d.ts",
     "frontend/src/backend.ts",
+    "frontend/src/components/AIExamStrategyAdvisor.tsx",
+    "frontend/src/components/CourseCard.tsx",
     "frontend/src/components/Navigation.tsx",
     "frontend/src/declarations/backend.did.d.ts",
     "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/admin/BrandingSettings.tsx",
-    "frontend/src/pages/admin/Dashboard.tsx",
+    "frontend/src/pages/BankingExamDetail.tsx",
+    "frontend/src/pages/BankingExams.tsx",
+    "frontend/src/pages/CivilServicesExams.tsx",
+    "frontend/src/pages/ClassDetail.tsx",
+    "frontend/src/pages/CompetitiveExams.tsx",
+    "frontend/src/pages/CourseDetail.tsx",
+    "frontend/src/pages/Courses.tsx",
+    "frontend/src/pages/DefenceExamDetail.tsx",
+    "frontend/src/pages/DefenceExams.tsx",
+    "frontend/src/pages/GeographySpecial.tsx",
+    "frontend/src/pages/Home.tsx",
+    "frontend/src/pages/PoliceExamDetail.tsx",
+    "frontend/src/pages/PoliceExams.tsx",
+    "frontend/src/pages/RailwayExamDetail.tsx",
+    "frontend/src/pages/RailwayExams.tsx",
+    "frontend/src/pages/SSCExamDetail.tsx",
+    "frontend/src/pages/SSCExams.tsx",
+    "frontend/src/pages/SchoolEducation.tsx",
+    "frontend/src/pages/StatePCSDetail.tsx",
+    "frontend/src/pages/StudyMaterial.tsx",
+    "frontend/src/pages/TeachingExamDetail.tsx",
+    "frontend/src/pages/TeachingExams.tsx",
     "frontend/src/pages/admin/ManageCourses.tsx",
-    "frontend/src/pages/admin/ManageCurrentAffairs.tsx",
-    "frontend/src/pages/admin/ManageNotes.tsx",
-    "frontend/src/pages/admin/ManageTests.tsx",
-    "frontend/src/pages/admin/ManageVideos.tsx",
-    "frontend/src/pages/admin/StudentManagement.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

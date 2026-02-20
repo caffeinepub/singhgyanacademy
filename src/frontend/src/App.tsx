@@ -1,18 +1,34 @@
-import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
-import { ThemeProvider } from 'next-themes';
-import { Toaster } from '@/components/ui/sonner';
-import Layout from './components/Layout';
+import { RouterProvider, createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
 import CourseDetail from './pages/CourseDetail';
-import VideoClasses from './pages/VideoClasses';
 import Notes from './pages/Notes';
 import TestSeries from './pages/TestSeries';
-import TakeTest from './pages/TakeTest';
 import CurrentAffairs from './pages/CurrentAffairs';
 import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
 import AILearningZone from './pages/AILearningZone';
+import CompetitiveExams from './pages/CompetitiveExams';
+import CivilServicesExams from './pages/CivilServicesExams';
+import StatePCSDetail from './pages/StatePCSDetail';
+import SSCExams from './pages/SSCExams';
+import SSCExamDetail from './pages/SSCExamDetail';
+import RailwayExams from './pages/RailwayExams';
+import RailwayExamDetail from './pages/RailwayExamDetail';
+import PoliceExams from './pages/PoliceExams';
+import PoliceExamDetail from './pages/PoliceExamDetail';
+import TeachingExams from './pages/TeachingExams';
+import TeachingExamDetail from './pages/TeachingExamDetail';
+import BankingExams from './pages/BankingExams';
+import BankingExamDetail from './pages/BankingExamDetail';
+import DefenceExams from './pages/DefenceExams';
+import DefenceExamDetail from './pages/DefenceExamDetail';
+import SchoolEducation from './pages/SchoolEducation';
+import ClassDetail from './pages/ClassDetail';
+import StudyMaterial from './pages/StudyMaterial';
+import VideoClasses from './pages/VideoClasses';
+import GeographySpecial from './pages/GeographySpecial';
 import AdminDashboard from './pages/admin/Dashboard';
 import ManageCourses from './pages/admin/ManageCourses';
 import ManageNotes from './pages/admin/ManageNotes';
@@ -21,10 +37,25 @@ import ManageCurrentAffairs from './pages/admin/ManageCurrentAffairs';
 import ManageVideos from './pages/admin/ManageVideos';
 import BrandingSettings from './pages/admin/BrandingSettings';
 import StudentManagement from './pages/admin/StudentManagement';
-import ProfileSetup from './components/ProfileSetup';
+import ManageLeadership from './pages/admin/ManageLeadership';
+import StaticContentSettings from './pages/admin/StaticContentSettings';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import { Toaster } from '@/components/ui/sonner';
+
+const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute({
-  component: Layout,
+  component: () => (
+    <>
+      <Navigation />
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
+      <Footer />
+      <Toaster />
+    </>
+  ),
 });
 
 const indexRoute = createRoute({
@@ -45,12 +76,6 @@ const courseDetailRoute = createRoute({
   component: CourseDetail,
 });
 
-const videoClassesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/video-classes',
-  component: VideoClasses,
-});
-
 const notesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/notes',
@@ -63,22 +88,10 @@ const testSeriesRoute = createRoute({
   component: TestSeries,
 });
 
-const takeTestRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/test-series/$type/$testId',
-  component: TakeTest,
-});
-
 const currentAffairsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/current-affairs',
   component: CurrentAffairs,
-});
-
-const aiLearningZoneRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/ai-learning-zone',
-  component: AILearningZone,
 });
 
 const aboutRoute = createRoute({
@@ -93,31 +106,157 @@ const contactRoute = createRoute({
   component: Contact,
 });
 
+const aiLearningZoneRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/ai-learning',
+  component: AILearningZone,
+});
+
+const competitiveExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams',
+  component: CompetitiveExams,
+});
+
+const civilServicesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/civil-services',
+  component: CivilServicesExams,
+});
+
+const statePCSDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/civil-services/$state',
+  component: StatePCSDetail,
+});
+
+const sscExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/ssc',
+  component: SSCExams,
+});
+
+const sscExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/ssc/$examType',
+  component: SSCExamDetail,
+});
+
+const railwayExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/railway',
+  component: RailwayExams,
+});
+
+const railwayExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/railway/$examType',
+  component: RailwayExamDetail,
+});
+
+const policeExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/police',
+  component: PoliceExams,
+});
+
+const policeExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/police/$examType',
+  component: PoliceExamDetail,
+});
+
+const teachingExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/teaching',
+  component: TeachingExams,
+});
+
+const teachingExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/teaching/$examType',
+  component: TeachingExamDetail,
+});
+
+const bankingExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/banking',
+  component: BankingExams,
+});
+
+const bankingExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/banking/$examType',
+  component: BankingExamDetail,
+});
+
+const defenceExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/defence',
+  component: DefenceExams,
+});
+
+const defenceExamDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/competitive-exams/defence/$examType',
+  component: DefenceExamDetail,
+});
+
+const schoolEducationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/school-education',
+  component: SchoolEducation,
+});
+
+const classDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/school-education/class/$classNumber',
+  component: ClassDetail,
+});
+
+const studyMaterialRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/study-material',
+  component: StudyMaterial,
+});
+
+const videoClassesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/video-classes',
+  component: VideoClasses,
+});
+
+const geographySpecialRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/geography-special',
+  component: GeographySpecial,
+});
+
 const adminDashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
   component: AdminDashboard,
 });
 
-const adminCoursesRoute = createRoute({
+const adminManageCoursesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin/manage-courses',
   component: ManageCourses,
 });
 
-const adminNotesRoute = createRoute({
+const adminManageNotesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin/manage-notes',
   component: ManageNotes,
 });
 
-const adminTestsRoute = createRoute({
+const adminManageTestsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin/manage-tests',
   component: ManageTests,
 });
 
-const adminCurrentAffairsRoute = createRoute({
+const adminManageCurrentAffairsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin/manage-current-affairs',
   component: ManageCurrentAffairs,
@@ -141,42 +280,66 @@ const adminStudentsRoute = createRoute({
   component: StudentManagement,
 });
 
+const adminLeadershipRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/leadership',
+  component: ManageLeadership,
+});
+
+const adminStaticContentRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/static-content',
+  component: StaticContentSettings,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   coursesRoute,
   courseDetailRoute,
-  videoClassesRoute,
   notesRoute,
   testSeriesRoute,
-  takeTestRoute,
   currentAffairsRoute,
-  aiLearningZoneRoute,
   aboutRoute,
   contactRoute,
+  aiLearningZoneRoute,
+  competitiveExamsRoute,
+  civilServicesRoute,
+  statePCSDetailRoute,
+  sscExamsRoute,
+  sscExamDetailRoute,
+  railwayExamsRoute,
+  railwayExamDetailRoute,
+  policeExamsRoute,
+  policeExamDetailRoute,
+  teachingExamsRoute,
+  teachingExamDetailRoute,
+  bankingExamsRoute,
+  bankingExamDetailRoute,
+  defenceExamsRoute,
+  defenceExamDetailRoute,
+  schoolEducationRoute,
+  classDetailRoute,
+  studyMaterialRoute,
+  videoClassesRoute,
+  geographySpecialRoute,
   adminDashboardRoute,
-  adminCoursesRoute,
-  adminNotesRoute,
-  adminTestsRoute,
-  adminCurrentAffairsRoute,
+  adminManageCoursesRoute,
+  adminManageNotesRoute,
+  adminManageTestsRoute,
+  adminManageCurrentAffairsRoute,
   adminVideosRoute,
   adminBrandingRoute,
   adminStudentsRoute,
+  adminLeadershipRoute,
+  adminStaticContentRoute,
 ]);
 
 const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
-
 export default function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ProfileSetup />
-      <Toaster />
-    </ThemeProvider>
+    </QueryClientProvider>
   );
 }

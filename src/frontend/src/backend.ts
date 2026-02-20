@@ -100,6 +100,12 @@ export interface _CaffeineStorageRefillResult {
     success?: boolean;
     topped_up_amount?: bigint;
 }
+export interface LeadershipImage {
+    name: string;
+    description: string;
+    image: ExternalBlob;
+    position: string;
+}
 export interface _CaffeineStorageRefillInformation {
     proposed_top_up_amount?: bigint;
 }
@@ -111,6 +117,11 @@ export interface Test {
 export interface _CaffeineStorageCreateCertificateResult {
     method: string;
     blob_hash: string;
+}
+export interface StaticContent {
+    contactInfo: string;
+    aboutUs: string;
+    footerText: string;
 }
 export interface Course {
     id: bigint;
@@ -150,15 +161,73 @@ export enum AssessmentType {
     fullLengthTest = "fullLengthTest"
 }
 export enum CourseCategory {
-    ssc = "ssc",
-    railway = "railway",
+    cds = "cds",
+    kvs = "kvs",
+    nda = "nda",
+    nvs = "nvs",
+    otherStatesPolice = "otherStatesPolice",
+    mppcs = "mppcs",
+    mptet = "mptet",
+    tnpsc = "tnpsc",
+    nabard = "nabard",
+    tspsc = "tspsc",
+    otherStatesPCS = "otherStatesPCS",
+    afcat = "afcat",
+    appsc = "appsc",
+    agniveer = "agniveer",
+    rbiGradeB = "rbiGradeB",
+    rpfConstable = "rpfConstable",
+    bpsc = "bpsc",
+    capf = "capf",
+    ctet = "ctet",
+    biharPolice = "biharPolice",
+    gpsc = "gpsc",
+    hpsc = "hpsc",
+    cgpsc = "cgpsc",
+    htet = "htet",
+    jpsc = "jpsc",
+    kpsc = "kpsc",
+    mpsc = "mpsc",
+    navy = "navy",
+    reet = "reet",
+    rpsc = "rpsc",
     upsc = "upsc",
-    banking = "banking",
+    airforce = "airforce",
+    rajasthanPolice = "rajasthanPolice",
+    stateTET = "stateTET",
+    ibpsClerk = "ibpsClerk",
+    sscCGL = "sscCGL",
+    sscCPO = "sscCPO",
+    sscMTS = "sscMTS",
+    sbiClerk = "sbiClerk",
     university_geography = "university_geography",
+    sbiPO = "sbiPO",
+    keralaPSC = "keralaPSC",
+    rrbALP = "rrbALP",
+    upPolice = "upPolice",
+    sscGD = "sscGD",
+    sscJE = "sscJE",
+    rrbGroupD = "rrbGroupD",
+    ukpsc = "ukpsc",
     uppcs = "uppcs",
-    tet_ctet = "tet_ctet",
-    nda_cds = "nda_cds",
-    police = "police"
+    uptet = "uptet",
+    delhiPolice = "delhiPolice",
+    sscConstable = "sscConstable",
+    rrbTechnician = "rrbTechnician",
+    ibpsPO = "ibpsPO",
+    mpPolice = "mpPolice",
+    rrbNTPC = "rrbNTPC",
+    wbpsc = "wbpsc",
+    punjabPSC = "punjabPSC",
+    sscStenographer = "sscStenographer",
+    sscCHSL = "sscCHSL",
+    dsssb = "dsssb",
+    licAAO = "licAAO",
+    rpfSI = "rpfSI",
+    superTET = "superTET",
+    rrbJE = "rrbJE",
+    sscSelectionPost = "sscSelectionPost",
+    haryanaPolice = "haryanaPolice"
 }
 export enum CurrentAffairsType {
     monthlyMagazine = "monthlyMagazine",
@@ -188,28 +257,34 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addCourse(category: CourseCategory, syllabus: Array<string>, videoLectures: Array<string>, notesFiles: Array<ExternalBlob>, pyqFiles: Array<ExternalBlob>, testSeries: Array<string>): Promise<void>;
     addCurrentAffair(type: CurrentAffairsType, content: string, file: ExternalBlob | null): Promise<void>;
+    addLeadershipImage(name: string, image: ExternalBlob, position: string, description: string): Promise<void>;
     addNote(subject: Subject, file: ExternalBlob): Promise<void>;
     addTest(assessmentType: AssessmentType, questions: Array<string>): Promise<void>;
     addVideo(title: string, category: string, description: string, youtubeLink: string): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     deleteCourse(id: bigint): Promise<void>;
     deleteCurrentAffair(id: bigint): Promise<void>;
+    deleteLeadershipImage(name: string): Promise<void>;
     deleteNote(id: bigint): Promise<void>;
     deleteTest(id: bigint): Promise<void>;
     deleteVideo(id: bigint): Promise<void>;
     enrollCourse(studentId: bigint, courseId: bigint): Promise<void>;
     getAllCurrentAffairs(): Promise<Array<CurrentAffair>>;
+    getAllLeadershipImages(): Promise<Array<LeadershipImage>>;
     getAllNotes(): Promise<Array<Note>>;
     getAllStudents(): Promise<Array<StudentProfile>>;
     getAllVideos(): Promise<Array<Video>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getCourseById(id: bigint): Promise<Course | null>;
     getCoursesByCategory(category: CourseCategory): Promise<Array<Course>>;
     getCurrentAffairsByType(type: CurrentAffairsType): Promise<Array<CurrentAffair>>;
+    getLeadershipImage(name: string): Promise<LeadershipImage | null>;
     getLogo(): Promise<Logo | null>;
     getNotesBySubject(subject: Subject): Promise<Array<Note>>;
     getSortedCoursesByCategory(): Promise<Array<Course>>;
     getSortedCoursesByNumLectures(): Promise<Array<Course>>;
+    getStaticContent(): Promise<StaticContent>;
     getStudent(id: bigint): Promise<StudentProfile>;
     getTestsByType(assessmentType: AssessmentType): Promise<Array<Test>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
@@ -218,12 +293,14 @@ export interface backendInterface {
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateCourse(id: bigint, category: CourseCategory, syllabus: Array<string>, videoLectures: Array<string>, notesFiles: Array<ExternalBlob>, pyqFiles: Array<ExternalBlob>, testSeries: Array<string>): Promise<void>;
     updateCurrentAffair(id: bigint, type: CurrentAffairsType, content: string, file: ExternalBlob | null): Promise<void>;
+    updateLeadershipImage(name: string, image: ExternalBlob, position: string, description: string): Promise<void>;
     updateLogo(newLogo: Logo): Promise<void>;
     updateNote(id: bigint, subject: Subject, file: ExternalBlob): Promise<void>;
+    updateStaticContent(aboutUs: string, contactInfo: string, footerText: string): Promise<void>;
     updateTest(id: bigint, assessmentType: AssessmentType, questions: Array<string>): Promise<void>;
     updateVideo(id: bigint, title: string, category: string, description: string, youtubeLink: string): Promise<void>;
 }
-import type { AssessmentType as _AssessmentType, Course as _Course, CourseCategory as _CourseCategory, CurrentAffair as _CurrentAffair, CurrentAffairsType as _CurrentAffairsType, ExternalBlob as _ExternalBlob, Logo as _Logo, Note as _Note, Subject as _Subject, Test as _Test, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
+import type { AssessmentType as _AssessmentType, Course as _Course, CourseCategory as _CourseCategory, CurrentAffair as _CurrentAffair, CurrentAffairsType as _CurrentAffairsType, ExternalBlob as _ExternalBlob, LeadershipImage as _LeadershipImage, Logo as _Logo, Note as _Note, Subject as _Subject, Test as _Test, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
@@ -352,6 +429,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async addLeadershipImage(arg0: string, arg1: ExternalBlob, arg2: string, arg3: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addLeadershipImage(arg0, await to_candid_ExternalBlob_n11(this._uploadFile, this._downloadFile, arg1), arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addLeadershipImage(arg0, await to_candid_ExternalBlob_n11(this._uploadFile, this._downloadFile, arg1), arg2, arg3);
+            return result;
+        }
+    }
     async addNote(arg0: Subject, arg1: ExternalBlob): Promise<void> {
         if (this.processError) {
             try {
@@ -436,6 +527,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async deleteLeadershipImage(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteLeadershipImage(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteLeadershipImage(arg0);
+            return result;
+        }
+    }
     async deleteNote(arg0: bigint): Promise<void> {
         if (this.processError) {
             try {
@@ -506,18 +611,32 @@ export class Backend implements backendInterface {
             return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
         }
     }
-    async getAllNotes(): Promise<Array<Note>> {
+    async getAllLeadershipImages(): Promise<Array<LeadershipImage>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getAllNotes();
+                const result = await this.actor.getAllLeadershipImages();
                 return from_candid_vec_n28(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getAllNotes();
+            const result = await this.actor.getAllLeadershipImages();
             return from_candid_vec_n28(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAllNotes(): Promise<Array<Note>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllNotes();
+                return from_candid_vec_n31(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllNotes();
+            return from_candid_vec_n31(this._uploadFile, this._downloadFile, result);
         }
     }
     async getAllStudents(): Promise<Array<StudentProfile>> {
@@ -552,42 +671,56 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserProfile();
-                return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserProfile();
-            return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCallerUserRole(): Promise<UserRole> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserRole();
-                return from_candid_UserRole_n36(this._uploadFile, this._downloadFile, result);
+                return from_candid_UserRole_n39(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserRole();
-            return from_candid_UserRole_n36(this._uploadFile, this._downloadFile, result);
+            return from_candid_UserRole_n39(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCourseById(arg0: bigint): Promise<Course | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCourseById(arg0);
+                return from_candid_opt_n41(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCourseById(arg0);
+            return from_candid_opt_n41(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCoursesByCategory(arg0: CourseCategory): Promise<Array<Course>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCoursesByCategory(to_candid_CourseCategory_n8(this._uploadFile, this._downloadFile, arg0));
-                return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCoursesByCategory(to_candid_CourseCategory_n8(this._uploadFile, this._downloadFile, arg0));
-            return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCurrentAffairsByType(arg0: CurrentAffairsType): Promise<Array<CurrentAffair>> {
@@ -604,60 +737,88 @@ export class Backend implements backendInterface {
             return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getLeadershipImage(arg0: string): Promise<LeadershipImage | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getLeadershipImage(arg0);
+                return from_candid_opt_n48(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getLeadershipImage(arg0);
+            return from_candid_opt_n48(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getLogo(): Promise<Logo | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getLogo();
-                return from_candid_opt_n44(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getLogo();
-            return from_candid_opt_n44(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
         }
     }
     async getNotesBySubject(arg0: Subject): Promise<Array<Note>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getNotesBySubject(to_candid_Subject_n15(this._uploadFile, this._downloadFile, arg0));
-                return from_candid_vec_n28(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n31(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getNotesBySubject(to_candid_Subject_n15(this._uploadFile, this._downloadFile, arg0));
-            return from_candid_vec_n28(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n31(this._uploadFile, this._downloadFile, result);
         }
     }
     async getSortedCoursesByCategory(): Promise<Array<Course>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getSortedCoursesByCategory();
-                return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getSortedCoursesByCategory();
-            return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
         }
     }
     async getSortedCoursesByNumLectures(): Promise<Array<Course>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getSortedCoursesByNumLectures();
-                return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getSortedCoursesByNumLectures();
-            return from_candid_vec_n38(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n47(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getStaticContent(): Promise<StaticContent> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getStaticContent();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getStaticContent();
+            return result;
         }
     }
     async getStudent(arg0: bigint): Promise<StudentProfile> {
@@ -678,28 +839,28 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getTestsByType(to_candid_AssessmentType_n17(this._uploadFile, this._downloadFile, arg0));
-                return from_candid_vec_n45(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n50(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getTestsByType(to_candid_AssessmentType_n17(this._uploadFile, this._downloadFile, arg0));
-            return from_candid_vec_n45(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n50(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getUserProfile(arg0);
-                return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getUserProfile(arg0);
-            return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async isCallerAdmin(): Promise<boolean> {
@@ -733,14 +894,14 @@ export class Backend implements backendInterface {
     async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n50(this._uploadFile, this._downloadFile, arg0));
+                const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n55(this._uploadFile, this._downloadFile, arg0));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n50(this._uploadFile, this._downloadFile, arg0));
+            const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n55(this._uploadFile, this._downloadFile, arg0));
             return result;
         }
     }
@@ -772,6 +933,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async updateLeadershipImage(arg0: string, arg1: ExternalBlob, arg2: string, arg3: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateLeadershipImage(arg0, await to_candid_ExternalBlob_n11(this._uploadFile, this._downloadFile, arg1), arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateLeadershipImage(arg0, await to_candid_ExternalBlob_n11(this._uploadFile, this._downloadFile, arg1), arg2, arg3);
+            return result;
+        }
+    }
     async updateLogo(arg0: Logo): Promise<void> {
         if (this.processError) {
             try {
@@ -797,6 +972,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.updateNote(arg0, to_candid_Subject_n15(this._uploadFile, this._downloadFile, arg1), await to_candid_ExternalBlob_n11(this._uploadFile, this._downloadFile, arg2));
+            return result;
+        }
+    }
+    async updateStaticContent(arg0: string, arg1: string, arg2: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateStaticContent(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateStaticContent(arg0, arg1, arg2);
             return result;
         }
     }
@@ -829,14 +1018,14 @@ export class Backend implements backendInterface {
         }
     }
 }
-function from_candid_AssessmentType_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AssessmentType): AssessmentType {
-    return from_candid_variant_n49(_uploadFile, _downloadFile, value);
+function from_candid_AssessmentType_n53(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AssessmentType): AssessmentType {
+    return from_candid_variant_n54(_uploadFile, _downloadFile, value);
 }
-function from_candid_CourseCategory_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CourseCategory): CourseCategory {
-    return from_candid_variant_n43(_uploadFile, _downloadFile, value);
+function from_candid_CourseCategory_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CourseCategory): CourseCategory {
+    return from_candid_variant_n46(_uploadFile, _downloadFile, value);
 }
-async function from_candid_Course_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Course): Promise<Course> {
-    return await from_candid_record_n40(_uploadFile, _downloadFile, value);
+async function from_candid_Course_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Course): Promise<Course> {
+    return await from_candid_record_n43(_uploadFile, _downloadFile, value);
 }
 async function from_candid_CurrentAffair_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CurrentAffair): Promise<CurrentAffair> {
     return await from_candid_record_n23(_uploadFile, _downloadFile, value);
@@ -847,20 +1036,23 @@ function from_candid_CurrentAffairsType_n26(_uploadFile: (file: ExternalBlob) =>
 async function from_candid_ExternalBlob_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ExternalBlob): Promise<ExternalBlob> {
     return await _downloadFile(value);
 }
-async function from_candid_Note_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Note): Promise<Note> {
+async function from_candid_LeadershipImage_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _LeadershipImage): Promise<LeadershipImage> {
     return await from_candid_record_n30(_uploadFile, _downloadFile, value);
 }
-function from_candid_Subject_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Subject): Subject {
-    return from_candid_variant_n32(_uploadFile, _downloadFile, value);
+async function from_candid_Note_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Note): Promise<Note> {
+    return await from_candid_record_n33(_uploadFile, _downloadFile, value);
 }
-function from_candid_Test_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Test): Test {
-    return from_candid_record_n47(_uploadFile, _downloadFile, value);
+function from_candid_Subject_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Subject): Subject {
+    return from_candid_variant_n35(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserProfile_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserProfile): UserProfile {
-    return from_candid_record_n35(_uploadFile, _downloadFile, value);
+function from_candid_Test_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Test): Test {
+    return from_candid_record_n52(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserRole_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
-    return from_candid_variant_n37(_uploadFile, _downloadFile, value);
+function from_candid_UserProfile_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserProfile): UserProfile {
+    return from_candid_record_n38(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n40(_uploadFile, _downloadFile, value);
 }
 function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
     return from_candid_record_n5(_uploadFile, _downloadFile, value);
@@ -868,10 +1060,16 @@ function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: Externa
 async function from_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ExternalBlob]): Promise<ExternalBlob | null> {
     return value.length === 0 ? null : await from_candid_ExternalBlob_n25(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
-    return value.length === 0 ? null : from_candid_UserProfile_n34(_uploadFile, _downloadFile, value[0]);
+function from_candid_opt_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
+    return value.length === 0 ? null : from_candid_UserProfile_n37(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Logo]): Logo | null {
+async function from_candid_opt_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Course]): Promise<Course | null> {
+    return value.length === 0 ? null : await from_candid_Course_n42(_uploadFile, _downloadFile, value[0]);
+}
+async function from_candid_opt_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_LeadershipImage]): Promise<LeadershipImage | null> {
+    return value.length === 0 ? null : await from_candid_LeadershipImage_n29(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Logo]): Logo | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
@@ -899,6 +1097,24 @@ async function from_candid_record_n23(_uploadFile: (file: ExternalBlob) => Promi
     };
 }
 async function from_candid_record_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    name: string;
+    description: string;
+    image: _ExternalBlob;
+    position: string;
+}): Promise<{
+    name: string;
+    description: string;
+    image: ExternalBlob;
+    position: string;
+}> {
+    return {
+        name: value.name,
+        description: value.description,
+        image: await from_candid_ExternalBlob_n25(_uploadFile, _downloadFile, value.image),
+        position: value.position
+    };
+}
+async function from_candid_record_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: bigint;
     subject: _Subject;
     file: _ExternalBlob;
@@ -909,11 +1125,11 @@ async function from_candid_record_n30(_uploadFile: (file: ExternalBlob) => Promi
 }> {
     return {
         id: value.id,
-        subject: from_candid_Subject_n31(_uploadFile, _downloadFile, value.subject),
+        subject: from_candid_Subject_n34(_uploadFile, _downloadFile, value.subject),
         file: await from_candid_ExternalBlob_n25(_uploadFile, _downloadFile, value.file)
     };
 }
-function from_candid_record_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     studentId: [] | [bigint];
     name: string;
     email: string;
@@ -928,7 +1144,7 @@ function from_candid_record_n35(_uploadFile: (file: ExternalBlob) => Promise<Uin
         email: value.email
     };
 }
-async function from_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+async function from_candid_record_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: bigint;
     pyq: Array<_ExternalBlob>;
     testSeries: Array<string>;
@@ -947,27 +1163,12 @@ async function from_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promi
 }> {
     return {
         id: value.id,
-        pyq: await from_candid_vec_n41(_uploadFile, _downloadFile, value.pyq),
+        pyq: await from_candid_vec_n44(_uploadFile, _downloadFile, value.pyq),
         testSeries: value.testSeries,
-        notes: await from_candid_vec_n41(_uploadFile, _downloadFile, value.notes),
-        category: from_candid_CourseCategory_n42(_uploadFile, _downloadFile, value.category),
+        notes: await from_candid_vec_n44(_uploadFile, _downloadFile, value.notes),
+        category: from_candid_CourseCategory_n45(_uploadFile, _downloadFile, value.category),
         videoLectures: value.videoLectures,
         syllabus: value.syllabus
-    };
-}
-function from_candid_record_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    id: bigint;
-    assessmentType: _AssessmentType;
-    questions: Array<string>;
-}): {
-    id: bigint;
-    assessmentType: AssessmentType;
-    questions: Array<string>;
-} {
-    return {
-        id: value.id,
-        assessmentType: from_candid_AssessmentType_n48(_uploadFile, _downloadFile, value.assessmentType),
-        questions: value.questions
     };
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
@@ -982,6 +1183,21 @@ function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint
         topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
     };
 }
+function from_candid_record_n52(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: bigint;
+    assessmentType: _AssessmentType;
+    questions: Array<string>;
+}): {
+    id: bigint;
+    assessmentType: AssessmentType;
+    questions: Array<string>;
+} {
+    return {
+        id: value.id,
+        assessmentType: from_candid_AssessmentType_n53(_uploadFile, _downloadFile, value.assessmentType),
+        questions: value.questions
+    };
+}
 function from_candid_variant_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     monthlyMagazine: null;
 } | {
@@ -991,7 +1207,7 @@ function from_candid_variant_n27(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): CurrentAffairsType {
     return "monthlyMagazine" in value ? CurrentAffairsType.monthlyMagazine : "dailyUpdate" in value ? CurrentAffairsType.dailyUpdate : "weeklyPDF" in value ? CurrentAffairsType.weeklyPDF : value;
 }
-function from_candid_variant_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     economy: null;
 } | {
     history: null;
@@ -1006,7 +1222,7 @@ function from_candid_variant_n32(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): Subject {
     return "economy" in value ? Subject.economy : "history" in value ? Subject.history : "geography" in value ? Subject.geography : "currentAffairs" in value ? Subject.currentAffairs : "polity" in value ? Subject.polity : "science" in value ? Subject.science : value;
 }
-function from_candid_variant_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
 } | {
     user: null;
@@ -1015,28 +1231,144 @@ function from_candid_variant_n37(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
-function from_candid_variant_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    ssc: null;
+function from_candid_variant_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    cds: null;
 } | {
-    railway: null;
+    kvs: null;
+} | {
+    nda: null;
+} | {
+    nvs: null;
+} | {
+    otherStatesPolice: null;
+} | {
+    mppcs: null;
+} | {
+    mptet: null;
+} | {
+    tnpsc: null;
+} | {
+    nabard: null;
+} | {
+    tspsc: null;
+} | {
+    otherStatesPCS: null;
+} | {
+    afcat: null;
+} | {
+    appsc: null;
+} | {
+    agniveer: null;
+} | {
+    rbiGradeB: null;
+} | {
+    rpfConstable: null;
+} | {
+    bpsc: null;
+} | {
+    capf: null;
+} | {
+    ctet: null;
+} | {
+    biharPolice: null;
+} | {
+    gpsc: null;
+} | {
+    hpsc: null;
+} | {
+    cgpsc: null;
+} | {
+    htet: null;
+} | {
+    jpsc: null;
+} | {
+    kpsc: null;
+} | {
+    mpsc: null;
+} | {
+    navy: null;
+} | {
+    reet: null;
+} | {
+    rpsc: null;
 } | {
     upsc: null;
 } | {
-    banking: null;
+    airforce: null;
+} | {
+    rajasthanPolice: null;
+} | {
+    stateTET: null;
+} | {
+    ibpsClerk: null;
+} | {
+    sscCGL: null;
+} | {
+    sscCPO: null;
+} | {
+    sscMTS: null;
+} | {
+    sbiClerk: null;
 } | {
     university_geography: null;
 } | {
+    sbiPO: null;
+} | {
+    keralaPSC: null;
+} | {
+    rrbALP: null;
+} | {
+    upPolice: null;
+} | {
+    sscGD: null;
+} | {
+    sscJE: null;
+} | {
+    rrbGroupD: null;
+} | {
+    ukpsc: null;
+} | {
     uppcs: null;
 } | {
-    tet_ctet: null;
+    uptet: null;
 } | {
-    nda_cds: null;
+    delhiPolice: null;
 } | {
-    police: null;
+    sscConstable: null;
+} | {
+    rrbTechnician: null;
+} | {
+    ibpsPO: null;
+} | {
+    mpPolice: null;
+} | {
+    rrbNTPC: null;
+} | {
+    wbpsc: null;
+} | {
+    punjabPSC: null;
+} | {
+    sscStenographer: null;
+} | {
+    sscCHSL: null;
+} | {
+    dsssb: null;
+} | {
+    licAAO: null;
+} | {
+    rpfSI: null;
+} | {
+    superTET: null;
+} | {
+    rrbJE: null;
+} | {
+    sscSelectionPost: null;
+} | {
+    haryanaPolice: null;
 }): CourseCategory {
-    return "ssc" in value ? CourseCategory.ssc : "railway" in value ? CourseCategory.railway : "upsc" in value ? CourseCategory.upsc : "banking" in value ? CourseCategory.banking : "university_geography" in value ? CourseCategory.university_geography : "uppcs" in value ? CourseCategory.uppcs : "tet_ctet" in value ? CourseCategory.tet_ctet : "nda_cds" in value ? CourseCategory.nda_cds : "police" in value ? CourseCategory.police : value;
+    return "cds" in value ? CourseCategory.cds : "kvs" in value ? CourseCategory.kvs : "nda" in value ? CourseCategory.nda : "nvs" in value ? CourseCategory.nvs : "otherStatesPolice" in value ? CourseCategory.otherStatesPolice : "mppcs" in value ? CourseCategory.mppcs : "mptet" in value ? CourseCategory.mptet : "tnpsc" in value ? CourseCategory.tnpsc : "nabard" in value ? CourseCategory.nabard : "tspsc" in value ? CourseCategory.tspsc : "otherStatesPCS" in value ? CourseCategory.otherStatesPCS : "afcat" in value ? CourseCategory.afcat : "appsc" in value ? CourseCategory.appsc : "agniveer" in value ? CourseCategory.agniveer : "rbiGradeB" in value ? CourseCategory.rbiGradeB : "rpfConstable" in value ? CourseCategory.rpfConstable : "bpsc" in value ? CourseCategory.bpsc : "capf" in value ? CourseCategory.capf : "ctet" in value ? CourseCategory.ctet : "biharPolice" in value ? CourseCategory.biharPolice : "gpsc" in value ? CourseCategory.gpsc : "hpsc" in value ? CourseCategory.hpsc : "cgpsc" in value ? CourseCategory.cgpsc : "htet" in value ? CourseCategory.htet : "jpsc" in value ? CourseCategory.jpsc : "kpsc" in value ? CourseCategory.kpsc : "mpsc" in value ? CourseCategory.mpsc : "navy" in value ? CourseCategory.navy : "reet" in value ? CourseCategory.reet : "rpsc" in value ? CourseCategory.rpsc : "upsc" in value ? CourseCategory.upsc : "airforce" in value ? CourseCategory.airforce : "rajasthanPolice" in value ? CourseCategory.rajasthanPolice : "stateTET" in value ? CourseCategory.stateTET : "ibpsClerk" in value ? CourseCategory.ibpsClerk : "sscCGL" in value ? CourseCategory.sscCGL : "sscCPO" in value ? CourseCategory.sscCPO : "sscMTS" in value ? CourseCategory.sscMTS : "sbiClerk" in value ? CourseCategory.sbiClerk : "university_geography" in value ? CourseCategory.university_geography : "sbiPO" in value ? CourseCategory.sbiPO : "keralaPSC" in value ? CourseCategory.keralaPSC : "rrbALP" in value ? CourseCategory.rrbALP : "upPolice" in value ? CourseCategory.upPolice : "sscGD" in value ? CourseCategory.sscGD : "sscJE" in value ? CourseCategory.sscJE : "rrbGroupD" in value ? CourseCategory.rrbGroupD : "ukpsc" in value ? CourseCategory.ukpsc : "uppcs" in value ? CourseCategory.uppcs : "uptet" in value ? CourseCategory.uptet : "delhiPolice" in value ? CourseCategory.delhiPolice : "sscConstable" in value ? CourseCategory.sscConstable : "rrbTechnician" in value ? CourseCategory.rrbTechnician : "ibpsPO" in value ? CourseCategory.ibpsPO : "mpPolice" in value ? CourseCategory.mpPolice : "rrbNTPC" in value ? CourseCategory.rrbNTPC : "wbpsc" in value ? CourseCategory.wbpsc : "punjabPSC" in value ? CourseCategory.punjabPSC : "sscStenographer" in value ? CourseCategory.sscStenographer : "sscCHSL" in value ? CourseCategory.sscCHSL : "dsssb" in value ? CourseCategory.dsssb : "licAAO" in value ? CourseCategory.licAAO : "rpfSI" in value ? CourseCategory.rpfSI : "superTET" in value ? CourseCategory.superTET : "rrbJE" in value ? CourseCategory.rrbJE : "sscSelectionPost" in value ? CourseCategory.sscSelectionPost : "haryanaPolice" in value ? CourseCategory.haryanaPolice : value;
 }
-function from_candid_variant_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n54(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     dailyQuiz: null;
 } | {
     weeklyTest: null;
@@ -1048,17 +1380,20 @@ function from_candid_variant_n49(_uploadFile: (file: ExternalBlob) => Promise<Ui
 async function from_candid_vec_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_CurrentAffair>): Promise<Array<CurrentAffair>> {
     return await Promise.all(value.map(async (x)=>await from_candid_CurrentAffair_n22(_uploadFile, _downloadFile, x)));
 }
-async function from_candid_vec_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Note>): Promise<Array<Note>> {
-    return await Promise.all(value.map(async (x)=>await from_candid_Note_n29(_uploadFile, _downloadFile, x)));
+async function from_candid_vec_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_LeadershipImage>): Promise<Array<LeadershipImage>> {
+    return await Promise.all(value.map(async (x)=>await from_candid_LeadershipImage_n29(_uploadFile, _downloadFile, x)));
 }
-async function from_candid_vec_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Course>): Promise<Array<Course>> {
-    return await Promise.all(value.map(async (x)=>await from_candid_Course_n39(_uploadFile, _downloadFile, x)));
+async function from_candid_vec_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Note>): Promise<Array<Note>> {
+    return await Promise.all(value.map(async (x)=>await from_candid_Note_n32(_uploadFile, _downloadFile, x)));
 }
-async function from_candid_vec_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ExternalBlob>): Promise<Array<ExternalBlob>> {
+async function from_candid_vec_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ExternalBlob>): Promise<Array<ExternalBlob>> {
     return await Promise.all(value.map(async (x)=>await from_candid_ExternalBlob_n25(_uploadFile, _downloadFile, x)));
 }
-function from_candid_vec_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Test>): Array<Test> {
-    return value.map((x)=>from_candid_Test_n46(_uploadFile, _downloadFile, x));
+async function from_candid_vec_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Course>): Promise<Array<Course>> {
+    return await Promise.all(value.map(async (x)=>await from_candid_Course_n42(_uploadFile, _downloadFile, x)));
+}
+function from_candid_vec_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Test>): Array<Test> {
+    return value.map((x)=>from_candid_Test_n51(_uploadFile, _downloadFile, x));
 }
 function to_candid_AssessmentType_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AssessmentType): _AssessmentType {
     return to_candid_variant_n18(_uploadFile, _downloadFile, value);
@@ -1075,8 +1410,8 @@ async function to_candid_ExternalBlob_n11(_uploadFile: (file: ExternalBlob) => P
 function to_candid_Subject_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Subject): _Subject {
     return to_candid_variant_n16(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserProfile_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserProfile): _UserProfile {
-    return to_candid_record_n51(_uploadFile, _downloadFile, value);
+function to_candid_UserProfile_n55(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserProfile): _UserProfile {
+    return to_candid_record_n56(_uploadFile, _downloadFile, value);
 }
 function to_candid_UserRole_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n20(_uploadFile, _downloadFile, value);
@@ -1099,7 +1434,7 @@ function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
         proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
     };
 }
-function to_candid_record_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function to_candid_record_n56(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     studentId?: bigint;
     name: string;
     email: string;
@@ -1187,42 +1522,274 @@ function to_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint
     } : value;
 }
 function to_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: CourseCategory): {
-    ssc: null;
+    cds: null;
 } | {
-    railway: null;
+    kvs: null;
+} | {
+    nda: null;
+} | {
+    nvs: null;
+} | {
+    otherStatesPolice: null;
+} | {
+    mppcs: null;
+} | {
+    mptet: null;
+} | {
+    tnpsc: null;
+} | {
+    nabard: null;
+} | {
+    tspsc: null;
+} | {
+    otherStatesPCS: null;
+} | {
+    afcat: null;
+} | {
+    appsc: null;
+} | {
+    agniveer: null;
+} | {
+    rbiGradeB: null;
+} | {
+    rpfConstable: null;
+} | {
+    bpsc: null;
+} | {
+    capf: null;
+} | {
+    ctet: null;
+} | {
+    biharPolice: null;
+} | {
+    gpsc: null;
+} | {
+    hpsc: null;
+} | {
+    cgpsc: null;
+} | {
+    htet: null;
+} | {
+    jpsc: null;
+} | {
+    kpsc: null;
+} | {
+    mpsc: null;
+} | {
+    navy: null;
+} | {
+    reet: null;
+} | {
+    rpsc: null;
 } | {
     upsc: null;
 } | {
-    banking: null;
+    airforce: null;
+} | {
+    rajasthanPolice: null;
+} | {
+    stateTET: null;
+} | {
+    ibpsClerk: null;
+} | {
+    sscCGL: null;
+} | {
+    sscCPO: null;
+} | {
+    sscMTS: null;
+} | {
+    sbiClerk: null;
 } | {
     university_geography: null;
 } | {
+    sbiPO: null;
+} | {
+    keralaPSC: null;
+} | {
+    rrbALP: null;
+} | {
+    upPolice: null;
+} | {
+    sscGD: null;
+} | {
+    sscJE: null;
+} | {
+    rrbGroupD: null;
+} | {
+    ukpsc: null;
+} | {
     uppcs: null;
 } | {
-    tet_ctet: null;
+    uptet: null;
 } | {
-    nda_cds: null;
+    delhiPolice: null;
 } | {
-    police: null;
+    sscConstable: null;
+} | {
+    rrbTechnician: null;
+} | {
+    ibpsPO: null;
+} | {
+    mpPolice: null;
+} | {
+    rrbNTPC: null;
+} | {
+    wbpsc: null;
+} | {
+    punjabPSC: null;
+} | {
+    sscStenographer: null;
+} | {
+    sscCHSL: null;
+} | {
+    dsssb: null;
+} | {
+    licAAO: null;
+} | {
+    rpfSI: null;
+} | {
+    superTET: null;
+} | {
+    rrbJE: null;
+} | {
+    sscSelectionPost: null;
+} | {
+    haryanaPolice: null;
 } {
-    return value == CourseCategory.ssc ? {
-        ssc: null
-    } : value == CourseCategory.railway ? {
-        railway: null
+    return value == CourseCategory.cds ? {
+        cds: null
+    } : value == CourseCategory.kvs ? {
+        kvs: null
+    } : value == CourseCategory.nda ? {
+        nda: null
+    } : value == CourseCategory.nvs ? {
+        nvs: null
+    } : value == CourseCategory.otherStatesPolice ? {
+        otherStatesPolice: null
+    } : value == CourseCategory.mppcs ? {
+        mppcs: null
+    } : value == CourseCategory.mptet ? {
+        mptet: null
+    } : value == CourseCategory.tnpsc ? {
+        tnpsc: null
+    } : value == CourseCategory.nabard ? {
+        nabard: null
+    } : value == CourseCategory.tspsc ? {
+        tspsc: null
+    } : value == CourseCategory.otherStatesPCS ? {
+        otherStatesPCS: null
+    } : value == CourseCategory.afcat ? {
+        afcat: null
+    } : value == CourseCategory.appsc ? {
+        appsc: null
+    } : value == CourseCategory.agniveer ? {
+        agniveer: null
+    } : value == CourseCategory.rbiGradeB ? {
+        rbiGradeB: null
+    } : value == CourseCategory.rpfConstable ? {
+        rpfConstable: null
+    } : value == CourseCategory.bpsc ? {
+        bpsc: null
+    } : value == CourseCategory.capf ? {
+        capf: null
+    } : value == CourseCategory.ctet ? {
+        ctet: null
+    } : value == CourseCategory.biharPolice ? {
+        biharPolice: null
+    } : value == CourseCategory.gpsc ? {
+        gpsc: null
+    } : value == CourseCategory.hpsc ? {
+        hpsc: null
+    } : value == CourseCategory.cgpsc ? {
+        cgpsc: null
+    } : value == CourseCategory.htet ? {
+        htet: null
+    } : value == CourseCategory.jpsc ? {
+        jpsc: null
+    } : value == CourseCategory.kpsc ? {
+        kpsc: null
+    } : value == CourseCategory.mpsc ? {
+        mpsc: null
+    } : value == CourseCategory.navy ? {
+        navy: null
+    } : value == CourseCategory.reet ? {
+        reet: null
+    } : value == CourseCategory.rpsc ? {
+        rpsc: null
     } : value == CourseCategory.upsc ? {
         upsc: null
-    } : value == CourseCategory.banking ? {
-        banking: null
+    } : value == CourseCategory.airforce ? {
+        airforce: null
+    } : value == CourseCategory.rajasthanPolice ? {
+        rajasthanPolice: null
+    } : value == CourseCategory.stateTET ? {
+        stateTET: null
+    } : value == CourseCategory.ibpsClerk ? {
+        ibpsClerk: null
+    } : value == CourseCategory.sscCGL ? {
+        sscCGL: null
+    } : value == CourseCategory.sscCPO ? {
+        sscCPO: null
+    } : value == CourseCategory.sscMTS ? {
+        sscMTS: null
+    } : value == CourseCategory.sbiClerk ? {
+        sbiClerk: null
     } : value == CourseCategory.university_geography ? {
         university_geography: null
+    } : value == CourseCategory.sbiPO ? {
+        sbiPO: null
+    } : value == CourseCategory.keralaPSC ? {
+        keralaPSC: null
+    } : value == CourseCategory.rrbALP ? {
+        rrbALP: null
+    } : value == CourseCategory.upPolice ? {
+        upPolice: null
+    } : value == CourseCategory.sscGD ? {
+        sscGD: null
+    } : value == CourseCategory.sscJE ? {
+        sscJE: null
+    } : value == CourseCategory.rrbGroupD ? {
+        rrbGroupD: null
+    } : value == CourseCategory.ukpsc ? {
+        ukpsc: null
     } : value == CourseCategory.uppcs ? {
         uppcs: null
-    } : value == CourseCategory.tet_ctet ? {
-        tet_ctet: null
-    } : value == CourseCategory.nda_cds ? {
-        nda_cds: null
-    } : value == CourseCategory.police ? {
-        police: null
+    } : value == CourseCategory.uptet ? {
+        uptet: null
+    } : value == CourseCategory.delhiPolice ? {
+        delhiPolice: null
+    } : value == CourseCategory.sscConstable ? {
+        sscConstable: null
+    } : value == CourseCategory.rrbTechnician ? {
+        rrbTechnician: null
+    } : value == CourseCategory.ibpsPO ? {
+        ibpsPO: null
+    } : value == CourseCategory.mpPolice ? {
+        mpPolice: null
+    } : value == CourseCategory.rrbNTPC ? {
+        rrbNTPC: null
+    } : value == CourseCategory.wbpsc ? {
+        wbpsc: null
+    } : value == CourseCategory.punjabPSC ? {
+        punjabPSC: null
+    } : value == CourseCategory.sscStenographer ? {
+        sscStenographer: null
+    } : value == CourseCategory.sscCHSL ? {
+        sscCHSL: null
+    } : value == CourseCategory.dsssb ? {
+        dsssb: null
+    } : value == CourseCategory.licAAO ? {
+        licAAO: null
+    } : value == CourseCategory.rpfSI ? {
+        rpfSI: null
+    } : value == CourseCategory.superTET ? {
+        superTET: null
+    } : value == CourseCategory.rrbJE ? {
+        rrbJE: null
+    } : value == CourseCategory.sscSelectionPost ? {
+        sscSelectionPost: null
+    } : value == CourseCategory.haryanaPolice ? {
+        haryanaPolice: null
     } : value;
 }
 async function to_candid_vec_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<ExternalBlob>): Promise<Array<_ExternalBlob>> {

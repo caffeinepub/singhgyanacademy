@@ -21,10 +21,21 @@ export interface Video {
     description: string;
     category: string;
 }
+export interface LeadershipImage {
+    name: string;
+    description: string;
+    image: ExternalBlob;
+    position: string;
+}
 export interface Test {
     id: bigint;
     assessmentType: AssessmentType;
     questions: Array<string>;
+}
+export interface StaticContent {
+    contactInfo: string;
+    aboutUs: string;
+    footerText: string;
 }
 export interface Course {
     id: bigint;
@@ -64,15 +75,73 @@ export enum AssessmentType {
     fullLengthTest = "fullLengthTest"
 }
 export enum CourseCategory {
-    ssc = "ssc",
-    railway = "railway",
+    cds = "cds",
+    kvs = "kvs",
+    nda = "nda",
+    nvs = "nvs",
+    otherStatesPolice = "otherStatesPolice",
+    mppcs = "mppcs",
+    mptet = "mptet",
+    tnpsc = "tnpsc",
+    nabard = "nabard",
+    tspsc = "tspsc",
+    otherStatesPCS = "otherStatesPCS",
+    afcat = "afcat",
+    appsc = "appsc",
+    agniveer = "agniveer",
+    rbiGradeB = "rbiGradeB",
+    rpfConstable = "rpfConstable",
+    bpsc = "bpsc",
+    capf = "capf",
+    ctet = "ctet",
+    biharPolice = "biharPolice",
+    gpsc = "gpsc",
+    hpsc = "hpsc",
+    cgpsc = "cgpsc",
+    htet = "htet",
+    jpsc = "jpsc",
+    kpsc = "kpsc",
+    mpsc = "mpsc",
+    navy = "navy",
+    reet = "reet",
+    rpsc = "rpsc",
     upsc = "upsc",
-    banking = "banking",
+    airforce = "airforce",
+    rajasthanPolice = "rajasthanPolice",
+    stateTET = "stateTET",
+    ibpsClerk = "ibpsClerk",
+    sscCGL = "sscCGL",
+    sscCPO = "sscCPO",
+    sscMTS = "sscMTS",
+    sbiClerk = "sbiClerk",
     university_geography = "university_geography",
+    sbiPO = "sbiPO",
+    keralaPSC = "keralaPSC",
+    rrbALP = "rrbALP",
+    upPolice = "upPolice",
+    sscGD = "sscGD",
+    sscJE = "sscJE",
+    rrbGroupD = "rrbGroupD",
+    ukpsc = "ukpsc",
     uppcs = "uppcs",
-    tet_ctet = "tet_ctet",
-    nda_cds = "nda_cds",
-    police = "police"
+    uptet = "uptet",
+    delhiPolice = "delhiPolice",
+    sscConstable = "sscConstable",
+    rrbTechnician = "rrbTechnician",
+    ibpsPO = "ibpsPO",
+    mpPolice = "mpPolice",
+    rrbNTPC = "rrbNTPC",
+    wbpsc = "wbpsc",
+    punjabPSC = "punjabPSC",
+    sscStenographer = "sscStenographer",
+    sscCHSL = "sscCHSL",
+    dsssb = "dsssb",
+    licAAO = "licAAO",
+    rpfSI = "rpfSI",
+    superTET = "superTET",
+    rrbJE = "rrbJE",
+    sscSelectionPost = "sscSelectionPost",
+    haryanaPolice = "haryanaPolice"
 }
 export enum CurrentAffairsType {
     monthlyMagazine = "monthlyMagazine",
@@ -95,28 +164,34 @@ export enum UserRole {
 export interface backendInterface {
     addCourse(category: CourseCategory, syllabus: Array<string>, videoLectures: Array<string>, notesFiles: Array<ExternalBlob>, pyqFiles: Array<ExternalBlob>, testSeries: Array<string>): Promise<void>;
     addCurrentAffair(type: CurrentAffairsType, content: string, file: ExternalBlob | null): Promise<void>;
+    addLeadershipImage(name: string, image: ExternalBlob, position: string, description: string): Promise<void>;
     addNote(subject: Subject, file: ExternalBlob): Promise<void>;
     addTest(assessmentType: AssessmentType, questions: Array<string>): Promise<void>;
     addVideo(title: string, category: string, description: string, youtubeLink: string): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     deleteCourse(id: bigint): Promise<void>;
     deleteCurrentAffair(id: bigint): Promise<void>;
+    deleteLeadershipImage(name: string): Promise<void>;
     deleteNote(id: bigint): Promise<void>;
     deleteTest(id: bigint): Promise<void>;
     deleteVideo(id: bigint): Promise<void>;
     enrollCourse(studentId: bigint, courseId: bigint): Promise<void>;
     getAllCurrentAffairs(): Promise<Array<CurrentAffair>>;
+    getAllLeadershipImages(): Promise<Array<LeadershipImage>>;
     getAllNotes(): Promise<Array<Note>>;
     getAllStudents(): Promise<Array<StudentProfile>>;
     getAllVideos(): Promise<Array<Video>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getCourseById(id: bigint): Promise<Course | null>;
     getCoursesByCategory(category: CourseCategory): Promise<Array<Course>>;
     getCurrentAffairsByType(type: CurrentAffairsType): Promise<Array<CurrentAffair>>;
+    getLeadershipImage(name: string): Promise<LeadershipImage | null>;
     getLogo(): Promise<Logo | null>;
     getNotesBySubject(subject: Subject): Promise<Array<Note>>;
     getSortedCoursesByCategory(): Promise<Array<Course>>;
     getSortedCoursesByNumLectures(): Promise<Array<Course>>;
+    getStaticContent(): Promise<StaticContent>;
     getStudent(id: bigint): Promise<StudentProfile>;
     getTestsByType(assessmentType: AssessmentType): Promise<Array<Test>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
@@ -125,8 +200,10 @@ export interface backendInterface {
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateCourse(id: bigint, category: CourseCategory, syllabus: Array<string>, videoLectures: Array<string>, notesFiles: Array<ExternalBlob>, pyqFiles: Array<ExternalBlob>, testSeries: Array<string>): Promise<void>;
     updateCurrentAffair(id: bigint, type: CurrentAffairsType, content: string, file: ExternalBlob | null): Promise<void>;
+    updateLeadershipImage(name: string, image: ExternalBlob, position: string, description: string): Promise<void>;
     updateLogo(newLogo: Logo): Promise<void>;
     updateNote(id: bigint, subject: Subject, file: ExternalBlob): Promise<void>;
+    updateStaticContent(aboutUs: string, contactInfo: string, footerText: string): Promise<void>;
     updateTest(id: bigint, assessmentType: AssessmentType, questions: Array<string>): Promise<void>;
     updateVideo(id: bigint, title: string, category: string, description: string, youtubeLink: string): Promise<void>;
 }
