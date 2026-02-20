@@ -1,0 +1,221 @@
+{
+  "kind": "build_request",
+  "title": "Build complete admin panel with dashboard, content management, and branding controls",
+  "projectName": "SinghGyan Academy",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "text": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Dashboard - सारी activity देखने के लिए"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays 7 navigation cards: Course Management, Video Management, Test Management, Notes Management, Current Affairs, Branding Settings, Student Management",
+        "Each card shows the total count of items (courses, videos, notes, tests, students)",
+        "Cards are clickable and navigate to respective management pages",
+        "Dashboard is only accessible to authenticated admin users"
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Course Management - नए course add/edit/delete करना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Course list displays all courses with their category, title, and action buttons",
+        "Edit button opens a form pre-populated with existing course data",
+        "Delete button removes course after confirmation prompt",
+        "Add new course functionality remains intact",
+        "Backend provides endpoints for updateCourse and deleteCourse operations"
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Video Upload - YouTube links add करना या videos upload करना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form accepts YouTube URL, video title, category selection (Geography Classes, Current Affairs, GS Classes, Exam Strategy), and optional description",
+        "Video list shows thumbnail preview, title, category, and action buttons",
+        "Edit functionality allows modifying video metadata",
+        "Delete functionality removes video after confirmation",
+        "Backend stores video data with VideoLecture type structure"
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "text": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Test Management - questions add करना, test बनाना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Test list displays all tests with title, type, question count, and action buttons",
+        "Edit button opens form with existing test data and questions",
+        "Admins can add, edit, or remove individual questions within a test",
+        "Delete button removes entire test after confirmation",
+        "Backend provides updateTest and deleteTest endpoints"
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Notes Upload - PDF files upload करना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Notes list displays all notes grouped by subject with title, upload date, and action buttons",
+        "Edit functionality allows changing note title and re-uploading PDF",
+        "Delete button removes note after confirmation",
+        "Upload new notes functionality remains intact",
+        "Backend provides updateNote and deleteNote endpoints"
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "text": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Current Affairs - daily/weekly updates डालना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Current affairs list displays all entries sorted by date with type badge and action buttons",
+        "Edit button opens form with existing content and PDF link",
+        "Delete button removes entry after confirmation",
+        "Filtering by type (daily/weekly/monthly) is available",
+        "Backend provides updateCurrentAffair and deleteCurrentAffair endpoints"
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "text": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Logo & Branding - logo और colors बदलना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "File upload accepts image files (PNG, JPG, SVG) for logo replacement",
+        "Logo preview shows before and after comparison",
+        "Save button updates the logo reference in backend configuration",
+        "New logo immediately reflects in Navigation component after save",
+        "Logo file is stored in frontend/public/assets/generated directory"
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ],
+        "quotes": [
+          "Student Management - registered students देखना"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Table displays all student profiles with columns: Name, Email, Registration Date, Last Active",
+        "Search functionality filters students by name or email",
+        "Pagination displays 20 students per page",
+        "Export to CSV button downloads complete student list",
+        "Backend provides getAllStudents query for admin users"
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "text": "Update backend main.mo to add CRUD endpoints for updateCourse, deleteCourse, updateTest, deleteTest, updateNote, deleteNote, updateCurrentAffair, deleteCurrentAffair, updateLogo, and getAllStudents with proper admin authorization checks.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All update endpoints accept ID and modified data, returning success boolean",
+        "All delete endpoints accept ID and remove entry from storage",
+        "updateLogo endpoint accepts logoUrl string and updates platform configuration",
+        "getAllStudents query returns array of student profiles with metadata",
+        "All endpoints verify caller is admin before executing operations",
+        "Endpoints return proper error messages for unauthorized access"
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "text": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-admin-panel-request"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Navigation component fetches current logo URL from backend on mount",
+        "Logo image src updates when branding settings are saved",
+        "Fallback to default logo if backend returns no custom logo",
+        "Logo maintains responsive sizing and accessibility attributes"
+      ]
+    }
+  ],
+  "constraints": [
+    "All admin functionality must verify authentication and admin status before allowing access",
+    "Maintain single-actor architecture in backend/main.mo",
+    "Do not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Use existing FileUploadWithProgress component for file uploads",
+    "Follow existing patterns in ManageCourses.tsx, ManageNotes.tsx, ManageTests.tsx, and ManageCurrentAffairs.tsx for consistency"
+  ],
+  "nonGoals": [
+    "Building mobile apps or native applications",
+    "Implementing real-time notifications or WebSocket features",
+    "Adding third-party authentication beyond Internet Identity",
+    "Creating multi-language admin interface (English only for admin panel)",
+    "Implementing role-based access control with multiple admin levels",
+    "Adding bulk import/export functionality for content",
+    "Building analytics dashboard with charts and graphs"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

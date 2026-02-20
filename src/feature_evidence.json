@@ -1,0 +1,195 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-an-admin-dashboard-landing-page-that-displays-navigation-cards-for-managing-courses-videos-notes-tests-current-affairs-branding-logo-colors-and-viewing-registered-students-include-statistics-overview-showing-total-counts-for-each-content-type",
+      "featureTitle": "Create an admin dashboard landing page that displays navigation cards for managing courses, videos, notes, tests, current affairs, branding (logo/colors), and viewing registered students. Include statistics overview showing total counts for each content type.",
+      "files": [
+        "frontend/src/pages/admin/Dashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-22"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-the-existing-managecourses-admin-page-to-support-editing-and-deleting-courses-in-addition-to-adding-new-courses-display-a-list-of-all-existing-courses-with-edit-and-delete-buttons-for-each-course",
+      "featureTitle": "Enhance the existing ManageCourses admin page to support editing and deleting courses in addition to adding new courses. Display a list of all existing courses with edit and delete buttons for each course.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/ManageCourses.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-23"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-video-management-admin-page-where-admins-can-add-youtube-video-links-with-metadata-title-category-description-edit-existing-videos-and-delete-videos-display-all-videos-in-a-searchable-and-filterable-list",
+      "featureTitle": "Create a video management admin page where admins can add YouTube video links with metadata (title, category, description), edit existing videos, and delete videos. Display all videos in a searchable and filterable list.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/ManageVideos.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-the-existing-managetests-admin-page-to-support-editing-and-deleting-test-series-display-a-list-of-all-existing-tests-with-edit-and-delete-buttons-and-allow-admins-to-modify-questions-within-a-test",
+      "featureTitle": "Enhance the existing ManageTests admin page to support editing and deleting test series. Display a list of all existing tests with edit and delete buttons, and allow admins to modify questions within a test.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/ManageTests.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-25"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-the-existing-managenotes-admin-page-to-support-editing-and-deleting-notes-display-a-list-of-all-uploaded-notes-with-subject-title-and-action-buttons-for-each-note",
+      "featureTitle": "Enhance the existing ManageNotes admin page to support editing and deleting notes. Display a list of all uploaded notes with subject, title, and action buttons for each note.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/ManageNotes.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-26"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-the-existing-managecurrentaffairs-admin-page-to-support-editing-and-deleting-current-affairs-entries-display-a-list-of-all-current-affairs-posts-with-type-daily-weekly-monthly-date-and-action-buttons",
+      "featureTitle": "Enhance the existing ManageCurrentAffairs admin page to support editing and deleting current affairs entries. Display a list of all current affairs posts with type (daily/weekly/monthly), date, and action buttons.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/ManageCurrentAffairs.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-27"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-branding-settings-admin-page-where-admins-can-upload-a-new-logo-image-preview-it-and-update-the-logo-used-throughout-the-platform-store-the-logo-as-a-generated-image-asset",
+      "featureTitle": "Create a branding settings admin page where admins can upload a new logo image, preview it, and update the logo used throughout the platform. Store the logo as a generated image asset.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/BrandingSettings.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-28"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-student-management-admin-page-that-displays-a-searchable-and-filterable-table-of-all-registered-students-showing-name-email-registration-date-and-activity-status",
+      "featureTitle": "Create a student management admin page that displays a searchable and filterable table of all registered students showing name, email, registration date, and activity status.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/StudentManagement.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-29"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-navigation-component-to-dynamically-load-and-display-the-logo-from-backend-configuration-instead-of-using-a-hardcoded-path-allowing-logo-changes-from-the-branding-settings-page-to-reflect-immediately",
+      "featureTitle": "Update the Navigation component to dynamically load and display the logo from backend configuration instead of using a hardcoded path, allowing logo changes from the branding settings page to reflect immediately.",
+      "files": [
+        "frontend/src/components/Navigation.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-31"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

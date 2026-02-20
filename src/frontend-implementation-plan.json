@@ -1,0 +1,211 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Build complete admin panel with dashboard, content management, and branding controls",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "summary": "Create admin dashboard landing page with navigation cards and statistics overview",
+      "acceptanceCriteria": [
+        "Dashboard displays 7 navigation cards: Course Management, Video Management, Test Management, Notes Management, Current Affairs, Branding Settings, Student Management",
+        "Each card shows the total count of items (courses, videos, notes, tests, students)",
+        "Cards are clickable and navigate to respective management pages",
+        "Dashboard is only accessible to authenticated admin users"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Enhance the existing admin dashboard to display 7 navigation cards with icons and item counts. Add cards for Video Management, Branding Settings, and Student Management. Fetch counts using backend queries (getAllVideos, getAllStudents, getLogo) and display total courses, videos, notes, tests, current affairs, and students. Use the authorization component to verify admin access before rendering dashboard content. Each card should navigate to its respective management page using React Router Link components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Enhance ManageCourses to support editing and deleting courses with course list display",
+      "acceptanceCriteria": [
+        "Course list displays all courses with their category, title, and action buttons",
+        "Edit button opens a form pre-populated with existing course data",
+        "Delete button removes course after confirmation prompt",
+        "Add new course functionality remains intact"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ManageCourses.tsx",
+          "operation": "modify",
+          "description": "Add course listing section above the add course form. Fetch all courses using getSortedCoursesByCategory query. Display each course with category badge, syllabus preview, video count, notes count, and action buttons. Implement edit functionality that populates the form with existing course data (category, syllabus, videoLectures, notes, PYQs, testSeries). Add delete button with confirmation dialog that calls deleteCourse backend method. Use React state to toggle between add and edit modes. Maintain existing FileUploadWithProgress integration for notes and PYQ files."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add mutation hooks for updateCourse and deleteCourse operations. The updateCourse mutation should accept course ID and all course fields (category, syllabus, videoLectures, notesFiles as ExternalBlob[], pyqFiles as ExternalBlob[], testSeries). The deleteCourse mutation should accept course ID. Both mutations should invalidate the courses query cache on success to trigger refetch of course lists."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Create video management admin page with add, edit, delete, and searchable list functionality",
+      "acceptanceCriteria": [
+        "Form accepts YouTube URL, video title, category selection (Geography Classes, Current Affairs, GS Classes, Exam Strategy), and optional description",
+        "Video list shows thumbnail preview, title, category, and action buttons",
+        "Edit functionality allows modifying video metadata",
+        "Delete functionality removes video after confirmation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ManageVideos.tsx",
+          "operation": "create",
+          "description": "Create new admin page for video management with form for adding YouTube videos (title, youtubeLink, category dropdown with options: Geography Classes, Current Affairs, GS Classes, Exam Strategy, and description textarea). Display searchable list of all videos fetched via getAllVideos query with thumbnail preview using YouTubeEmbed component, title, category badge, description preview, and edit/delete action buttons. Implement edit mode that populates form with existing video data. Add delete confirmation dialog. Use authorization component to verify admin access. Include search/filter input to filter videos by title or category."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add mutation hooks for addVideo, updateVideo, and deleteVideo operations. The updateVideo mutation should accept video ID, title, category, description, and youtubeLink. The deleteVideo mutation should accept video ID. All mutations should invalidate the videos query cache on success."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for the new ManageVideos admin page at path '/admin/videos' within the existing admin routes structure."
+        }
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "summary": "Enhance ManageTests to support editing and deleting tests with test list and question management",
+      "acceptanceCriteria": [
+        "Test list displays all tests with title, type, question count, and action buttons",
+        "Edit button opens form with existing test data and questions",
+        "Admins can add, edit, or remove individual questions within a test",
+        "Delete button removes entire test after confirmation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ManageTests.tsx",
+          "operation": "modify",
+          "description": "Add test listing section that displays all tests grouped by assessment type (dailyQuiz, weeklyTest, fullLengthTest). Fetch tests using getTestsByType queries for each type. Display test cards showing type badge, question count, and edit/delete buttons. Implement edit mode that loads existing test data including all questions into the form. Add ability to modify individual questions, add new questions, or remove questions from the list. Include delete confirmation dialog. Maintain existing assessment type dropdown and dynamic question management. Use React state to track edit mode and selected test."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add mutation hooks for updateTest and deleteTest operations. The updateTest mutation should accept test ID, assessmentType, and questions array. The deleteTest mutation should accept test ID. Both mutations should invalidate test queries cache on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "Enhance ManageNotes to support editing and deleting notes with notes list display",
+      "acceptanceCriteria": [
+        "Notes list displays all notes grouped by subject with title, upload date, and action buttons",
+        "Edit functionality allows changing note title and re-uploading PDF",
+        "Delete button removes note after confirmation",
+        "Upload new notes functionality remains intact"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ManageNotes.tsx",
+          "operation": "modify",
+          "description": "Add notes listing section that displays all existing notes grouped by subject using getAllNotes query. For each note, show subject badge, file preview link, upload date (if available from note ID or metadata), and edit/delete action buttons. Implement edit mode that allows changing the subject selection and re-uploading PDF file using FileUploadWithProgress component. Add delete confirmation dialog. Maintain existing add note form functionality. Use tabs or accordions to organize notes by subject for better navigation."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add mutation hooks for updateNote and deleteNote operations. The updateNote mutation should accept note ID, subject, and file as ExternalBlob. The deleteNote mutation should accept note ID. Both mutations should invalidate the notes query cache on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "summary": "Enhance ManageCurrentAffairs to support editing and deleting entries with filterable list",
+      "acceptanceCriteria": [
+        "Current affairs list displays all entries sorted by date with type badge and action buttons",
+        "Edit button opens form with existing content and PDF link",
+        "Delete button removes entry after confirmation",
+        "Filtering by type (daily/weekly/monthly) is available"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ManageCurrentAffairs.tsx",
+          "operation": "modify",
+          "description": "Add current affairs listing section displaying all entries fetched via getAllCurrentAffairs query, sorted by ID (descending for newest first). Show type badge (dailyUpdate, weeklyPDF, monthlyMagazine), content preview (first 100 characters), file download link if present, and edit/delete buttons. Implement type filter dropdown to filter entries by CurrentAffairsType. Add edit mode that populates form with existing type, content, and file. Include delete confirmation dialog. Maintain existing add current affair form with type selection, content textarea, and optional PDF upload using FileUploadWithProgress component."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add mutation hooks for updateCurrentAffair and deleteCurrentAffair operations. The updateCurrentAffair mutation should accept current affair ID, type, content, and optional file as ExternalBlob. The deleteCurrentAffair mutation should accept current affair ID. Both mutations should invalidate current affairs query cache on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "summary": "Create branding settings admin page for logo upload and preview",
+      "acceptanceCriteria": [
+        "File upload accepts image files (PNG, JPG, SVG) for logo replacement",
+        "Logo preview shows before and after comparison",
+        "Save button updates the logo reference in backend configuration",
+        "New logo immediately reflects in Navigation component after save",
+        "Logo file is stored in frontend/public/assets/generated directory"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/BrandingSettings.tsx",
+          "operation": "create",
+          "description": "Create new admin page for branding settings with logo management section. Display current logo fetched via getLogo backend query. Provide file upload input accepting image formats (PNG, JPG, SVG) with preview of selected new logo before saving. Show side-by-side comparison of current and new logo. Include save button that calls updateLogo backend method with new logo data as Uint8Array (Logo type). After successful save, invalidate logo query cache and show success message. Use authorization component to verify admin access. Reference the generated logo asset at frontend/public/assets/generated/logo.dim_256x256.png as the default logo visualization."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add query hook for getLogo to fetch current logo from backend. Add mutation hook for updateLogo that accepts Logo (Uint8Array) and invalidates logo query cache on success. Ensure the logo query is exposed for use in both BrandingSettings and Navigation components."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for the new BrandingSettings admin page at path '/admin/branding' within the existing admin routes structure."
+        }
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "summary": "Create student management admin page with searchable and filterable student table",
+      "acceptanceCriteria": [
+        "Table displays all student profiles with columns: Name, Email, Registration Date, Last Active",
+        "Search functionality filters students by name or email",
+        "Pagination displays 20 students per page",
+        "Export to CSV button downloads complete student list"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/StudentManagement.tsx",
+          "operation": "create",
+          "description": "Create new admin page displaying all registered students in a table using getAllStudents backend query. Table columns should include Name, Email, Registration Date (derived from student ID if timestamp-based), and Last Active (placeholder or future feature). Implement search input that filters students by name or email (client-side filtering). Add pagination controls to display 20 students per page with next/previous buttons and page number display. Include Export to CSV button that generates CSV file from student data and triggers download. Use authorization component to verify admin access. Style table using shadcn/ui table components for consistency."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add query hook for getAllStudents that fetches complete array of StudentProfile objects from backend. Ensure the query is only enabled when user is authenticated and has admin role."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for the new StudentManagement admin page at path '/admin/students' within the existing admin routes structure."
+        }
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "summary": "Update Navigation component to dynamically load logo from backend configuration",
+      "acceptanceCriteria": [
+        "Navigation component fetches current logo URL from backend on mount",
+        "Logo image src updates when branding settings are saved",
+        "Fallback to default logo if backend returns no custom logo",
+        "Logo maintains responsive sizing and accessibility attributes"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Add getLogo query using the hook from useQueries to fetch current logo on component mount. Convert Logo (Uint8Array) to data URL or blob URL for img src attribute. Display fetched logo if available, otherwise fallback to the default generated logo asset at frontend/public/assets/generated/logo.dim_256x256.png. Ensure logo updates reactively when branding settings are saved (React Query cache invalidation handles this automatically). Maintain existing responsive sizing classes and add appropriate alt text for accessibility. Keep existing navigation structure and links intact."
+        }
+      ]
+    }
+  ]
+}
